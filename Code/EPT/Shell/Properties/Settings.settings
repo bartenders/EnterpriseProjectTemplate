@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EPT.Shell.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ModuleSearchPattern" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">EPT.Modules.*.dll</Value>
+    </Setting>
+    <Setting Name="ModuleBaseDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\Modules\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

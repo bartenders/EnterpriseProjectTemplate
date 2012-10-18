@@ -1,0 +1,48 @@
+﻿<Window x:Class="EPT.Shell.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        Title="{Binding DisplayName}"
+        d:DesignHeight="267"
+        d:DesignWidth="559"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate x:Key="IShellModuleDataTemplate">
+            <Grid d:DesignHeight="39" d:DesignWidth="197">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl Content="{Binding Icon}" />
+                <TextBlock Grid.Column="1"
+                           Margin="5,0,10,0"
+                           VerticalAlignment="Center"
+                           Text="{Binding DisplayName}"
+                           TextWrapping="Wrap"
+                           d:LayoutOverrides="Width" />
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="50" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding Items}"
+                 ItemTemplate="{DynamicResource IShellModuleDataTemplate}"
+                 SelectedItem="{Binding ActiveItem}" />
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="5" />
+
+        <ContentControl Grid.Column="1"
+                        Margin="5,0,0,0"
+                        cal:Bind.AtDesignTime="True"
+                        cal:View.Model="{Binding ActiveItem}" />
+
+
+    </Grid>
+
+</Window>

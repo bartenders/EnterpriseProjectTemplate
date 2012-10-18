@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="DeveloperBuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	
+	<!-- define projects -->
+	<ItemGroup>
+		<Projects Include="..\Solutions\EnterpriseProjectTemplate.sln" />
+	</ItemGroup>	
+	
+	<!-- set environment properties -->
+	<PropertyGroup>
+		<VSShellRootFolder>C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE</VSShellRootFolder>
+		<DB>do not create</DB>
+		<GITRepository>$(MSBuildProjectDirectory)\..</GITRepository>
+	</PropertyGroup>
+	
+	<!-- copy necessary stuff, create folders etc. -->
+	<Target Name="SetUpEnvironment">
+		<Copy Condition="!Exists('$(VSShellRootFolder)\PublicAssemblies\Microsoft.Cci.dll') AND Exists('..\BuildTasks\TextTemplating\T4Helper\Microsoft.Cci.dll')" SourceFiles="..\BuildTasks\TextTemplating\T4Helper\Microsoft.Cci.dll" DestinationFolder="$(VSShellRootFolder)\PublicAssemblies\" />
+
+		<MakeDir Condition="!Exists('$(CCNetArtifactDirectory)')" Directories="$(CCNetArtifactDirectory)" />
+		<MakeDir Condition="!Exists('$(CCNetArtifactDirectory)\testresults\')" Directories="$(CCNetArtifactDirectory)\testresults\" />
+		<MakeDir Condition="!Exists('$(CCNetArtifactDirectory)\stylecopresults\')" Directories="$(CCNetArtifactDirectory)\stylecopresults\" />
+		<MakeDir Condition="!Exists('$(CCNetPublishDirectory)')" Directories="$(CCNetPublishDirectory)" />
+	</Target>
+	
+	<!-- delete old files -->
+	<Target Name="CleanUp">
+		<RemoveDir Directories="$(GITRepository)\Output\" />
+		<MakeDir Directories="$(GITRepository)\Output\" Condition="!Exists('$(GITRepository)\Output\')" />
+	</Target>
+	
+	<!-- Compilation [Debug] -->
+	<Target Name="DeveloperBuild">
+		<CallTarget Targets="SetUpEnvironment" />
+		<MSBuild Targets="CleanUp" Properties="Stage=DeveloperBuild" Projects="$(MSBuildProjectFile)" />
+		<MSBuild Projects="@(Projects)" Properties="Configuration=Debug;Platform=x86;" />
+	</Target>
+	
+</Project>

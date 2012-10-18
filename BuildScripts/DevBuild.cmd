@@ -1,0 +1,1 @@
+cmd /k "%SYSTEMROOT%\Microsoft.NET\Framework\v4.0.30319\MsBuild.exe" Master.msbuild /logger:FileLogger,Microsoft.Build.Engine;logfile=MasterBuild.log;verbosity=normal;encoding=utf-8 /target:DeveloperBuild
