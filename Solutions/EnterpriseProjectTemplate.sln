@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Shell", "..\Code\EPT\Shell\EPT.Shell.csproj", "{DB8E6F64-8B8D-4FC2-B199-BACFAECF52BB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EDE31841-6627-48F4-8995-9E51B94B0E5E} = {EDE31841-6627-48F4-8995-9E51B94B0E5E}
+		{1A3903C5-53F2-44CB-AEE7-7E6F34FE5AFE} = {1A3903C5-53F2-44CB-AEE7-7E6F34FE5AFE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Infrastructure", "..\Code\EPT\Infrastructure\EPT.Infrastructure.csproj", "{FAFE940D-3319-4012-AA15-0CF96FAB2863}"
 EndProject

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Elysium.Theme</id>
+    <version>1.5</version>
+    <title>Elysium</title>
+    <authors>Alex F. Sherman &amp; Codeplex Community</authors>
+    <owners>Alex F. Sherman &amp; Codeplex Community</owners>
+    <licenseUrl>http://elysium.codeplex.com/license</licenseUrl>
+    <projectUrl>http://elysium.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Elysium is library that implements Metro style for Windows Presentation Foundation applications.</description>
+    <releaseNotes>Elysium 1.5 EAP is not backward compatible with previous version of Elysium. For more information, see documentation.</releaseNotes>
+    <copyright>Copyright © Alex F. Sherman &amp; Codeplex Community 2011-2012</copyright>
+    <language>en-US</language>
+    <tags>Elysium WPF UI Theme Theming Metro Modern Windows Phone 8</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" targetFramework=".NETFramework4.0-Client, .NETFramework4.5" />
+      <frameworkAssembly assemblyName="PresentationFramework" targetFramework=".NETFramework4.0-Client, .NETFramework4.5" />
+      <frameworkAssembly assemblyName="WindowsBase" targetFramework=".NETFramework4.0-Client, .NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Xaml" targetFramework=".NETFramework4.0-Client, .NETFramework4.5" />
+    </frameworkAssemblies>
+    <references>
+      <reference file="Elysium.dll" />
+    </references>
+  </metadata>
+</package>

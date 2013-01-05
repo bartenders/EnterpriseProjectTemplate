@@ -9,7 +9,13 @@ namespace EPT.GUI.Helpers
     {
         private static string _assemblyShortName;
 
-        public static Uri MakePackUri(string relativeFile)
+
+        /// <summary>
+        /// Gets the pack URI of a Image relative to EPT.GUI.
+        /// </summary>
+        /// <param name="relativeFile">The relative filename e.g. (Images\Dark\appbar.acorn.png).</param>
+        /// <returns>a formated Pack Uri</returns>
+        public static Uri GetPackUri(string relativeFile)
         {
             var uriString = new StringBuilder(); 
             uriString.Append("pack://application:,,,");
@@ -18,7 +24,13 @@ namespace EPT.GUI.Helpers
             return new Uri(uriString.ToString(), UriKind.RelativeOrAbsolute);
         }
 
-        public static Uri MakePackUri<T>(string relativeAssemblyFilePath)
+        /// <summary>
+        /// Gets a pack URI from a given Assembly.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="relativeAssemblyFilePath">The relative assembly file path.</param>
+        /// <returns></returns>
+        public static Uri GetPackUriFrom<T>(string relativeAssemblyFilePath)
         {
             var uriString = new StringBuilder();
             uriString.Append("pack://application:,,,");
@@ -32,8 +44,7 @@ namespace EPT.GUI.Helpers
             {
                 if (_assemblyShortName == null)
                 {
-                    Assembly a = typeof(UriHelper).Assembly;
-
+                    var a = typeof(UriHelper).Assembly;
                     // Pull out the short name.
                     _assemblyShortName = a.ToString().Split(',')[0];
                 }

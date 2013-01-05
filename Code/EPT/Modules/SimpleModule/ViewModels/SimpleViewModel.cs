@@ -25,7 +25,7 @@ namespace EPT.Modules.SimpleModule.ViewModels
 
         public Image Icon
         {
-            get { return ImageHelper.CreateImage(UriHelper.MakePackUri<SimpleViewModel>(@"\Images\appbar.box.png"), 48);  }
+            get { return ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.box.png"), 48);  }
         }
 
         public int OrderPriority

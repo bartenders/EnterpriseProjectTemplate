@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Caliburn.Micro;
 using EPT.DAL.Northwind;
 using EPT.GUI.Commands;
+using EPT.GUI.Helpers;
 using EPT.Infrastructure.Interfaces;
 using EPT.Infrastructure.Messages;
 
@@ -26,13 +27,28 @@ namespace EPT.Modules.EmployeeModule.ViewModels
             get { return _Employee; }
             set
             {
-                if (value != _Employee)
-                {
-                    _Employee = value;
-                    NotifyOfPropertyChange(() => Employee);
-                }
+                if (value == _Employee) return;
+                _Employee = value;
+                NotifyOfPropertyChange(() => Employee);
             }
         }
+
+
+        private ICommand _TestCommand;
+        public ICommand TestCommand
+        {
+            get
+            {
+                return _TestCommand ?? (_TestCommand = new DelegateCommand<EmployeeViewModel>(
+                                                     (x) =>
+                                                         {
+                                                             // Add Command Logic here
+
+                                                         },
+                                                     // Can Do Command Logic
+                                                     (x) => true));
+            }
+        }   
 
         private ICommand _SendMessageCommand;
         public ICommand SendMessageCommand
@@ -51,7 +67,11 @@ namespace EPT.Modules.EmployeeModule.ViewModels
         }
 
 
-        public Image Icon { get; private set; }
+        public Image Icon
+        {
+            get { return ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.cone.diagonal.png"), 48); }
+        }
+
         public int OrderPriority { get; private set; }
     }
 }

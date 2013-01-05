@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Caliburn.Micro.DevExpress</id>
+    <version>0.5.1.1</version>
+    <title>Caliburn.Micro.DevExpress</title>
+    <authors>Jenei Péter</authors>
+    <owners>Jenei Péter</owners>
+    <licenseUrl>http://calmicrodevexpress.codeplex.com/license</licenseUrl>
+    <projectUrl>http://calmicrodevexpress.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Conventions and classes for using DevExpress WPF controls with Caliburn.Micro</description>
+    <releaseNotes>Improved GetNamedElements to support LayoutControl.GroupBox as a container.</releaseNotes>
+    <copyright>Copyright 2012 by Jenei Péter</copyright>
+    <tags>Caliburn.Micro DevExpress WPF</tags>
+    <dependencies>
+      <dependency id="Caliburn.Micro" version="1.3.1" />
+    </dependencies>
+    <references>
+      <reference file="Caliburn.Micro.DevExpress.dll" />
+    </references>
+  </metadata>
+</package>

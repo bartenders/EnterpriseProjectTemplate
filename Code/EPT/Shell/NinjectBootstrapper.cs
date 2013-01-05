@@ -13,9 +13,22 @@ namespace EPT.Shell
 {
     public class NinjectBootstrapper : Bootstrapper<IShell>
     {
-        private readonly KernelBase _Kernel = new StandardKernel();
+        private readonly KernelBase _kernel = new StandardKernel();
         private byte[] _PublicKey;
 
+
+        /// <summary>
+        /// Initializes the <see cref="NinjectBootstrapper" /> class.
+        /// </summary>
+        //static NinjectBootstrapper()
+        //{
+        //    Caliburn.Micro.DevExpress.DXConventions.Install();
+        //}
+
+        /// <summary>
+        /// Configure the framework and setup IoC container.
+        /// </summary>
+        /// <exception cref="System.Windows.ResourceReferenceKeyNotFoundException"></exception>
         protected override void Configure()
         {
             _PublicKey = Assembly.GetExecutingAssembly().GetName().GetPublicKey();
@@ -31,7 +44,7 @@ namespace EPT.Shell
             var validModuleAssembiles = moduleAssemblies.Where(CheckAssemblySignature).ToList();
             
             // Load Modules via Ninject Kernel
-            _Kernel.Load(validModuleAssembiles);
+            _kernel.Load(validModuleAssembiles);
 
             // Import Assemblys into Caliburn for inspection
             AssemblySource.Instance.AddRange(validModuleAssembiles);
@@ -39,6 +52,11 @@ namespace EPT.Shell
             base.Configure();
         }
 
+        /// <summary>
+        /// Checks the signature of a given Assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        /// <returns>True, if valid Signature</returns>
         private bool CheckAssemblySignature(Assembly assembly)
         {
             return true;
@@ -62,12 +80,12 @@ namespace EPT.Shell
 
         protected override object GetInstance(Type service, string key)
         {
-           return  _Kernel.Get(service);
+           return  _kernel.Get(service);
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            return _Kernel.GetAll(service);
+            return _kernel.GetAll(service);
         }
     }
 }
