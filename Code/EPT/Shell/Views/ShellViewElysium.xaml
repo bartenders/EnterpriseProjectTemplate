@@ -1,16 +1,19 @@
-﻿<Window x:Class="EPT.Shell.Views.ShellViewElysium"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:cal="http://www.caliburnproject.org"
-        xmlns:VM="clr-namespace:EPT.Shell.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="{Binding DisplayName}"
-        Icon="\Images\appbar.transit.congestion.png"
-        d:DesignHeight="267"
-        d:DataContext="{d:DesignInstance VM:ShellViewModel, IsDesignTimeCreatable=True}"
-        d:DesignWidth="559"
-        mc:Ignorable="d">
+﻿<controls:Window x:Class="EPT.Shell.Views.ShellViewElysium"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:VM="clr-namespace:EPT.Shell.ViewModels"
+                 xmlns:cal="http://www.caliburnproject.org"
+                 xmlns:controls="clr-namespace:Elysium.Controls;assembly=Elysium"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:metro="http://schemas.codeplex.com/elysium/theme"
+                 Title="{Binding DisplayName}"
+                 Icon="\Images\appbar.transit.congestion.png"
+                 d:DataContext="{d:DesignInstance VM:ShellViewModel,
+                                                  IsDesignTimeCreatable=True}"
+                 d:DesignHeight="267"
+                 d:DesignWidth="559"
+                 mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate x:Key="IShellModuleDataTemplate">
             <Grid d:DesignHeight="39" d:DesignWidth="197">
@@ -50,4 +53,4 @@
 
     </Grid>
 
-</Window>
+</controls:Window>

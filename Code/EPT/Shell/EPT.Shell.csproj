@@ -49,7 +49,7 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>appbar.transit.congestion.ico</ApplicationIcon>
+    <ApplicationIcon>Images\appbar.transit.congestion.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=1.4.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
@@ -58,6 +58,9 @@
     </Reference>
     <Reference Include="Caliburn.Micro.DevExpress">
       <HintPath>..\..\..\Solutions\packages\Caliburn.Micro.DevExpress.0.5.1.1\lib\net40-Client\Caliburn.Micro.DevExpress.dll</HintPath>
+    </Reference>
+    <Reference Include="Elysium, Version=1.5.926.0, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Solutions\packages\Elysium.Theme.1.5\lib\net45\Elysium.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="Ninject">
@@ -118,11 +121,13 @@
     </Compile>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
+    <None Include="en\Elysium.chm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="ru\Elysium.chm" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\EPT.DAL.Northwind.csproj">
@@ -139,10 +144,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="appbar.transit.congestion.ico" />
+    <Resource Include="Images\appbar.transit.congestion.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\appbar.transit.congestion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ru\Microsoft.Expression.Drawing.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ru\Elysium.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Microsoft.Expression.Drawing.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="en\Microsoft.Expression.Drawing.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="en\Elysium.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

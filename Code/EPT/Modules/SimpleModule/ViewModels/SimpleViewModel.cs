@@ -5,8 +5,10 @@ using EPT.Infrastructure.Interfaces;
 
 namespace EPT.Modules.SimpleModule.ViewModels
 {
-    public sealed class SimpleViewModel : Screen, IShellModule
+    public sealed class SimpleViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule
     {
+        int _count = 1;
+
         public SimpleViewModel()
         {
             DisplayName = "Simple Module";
@@ -43,6 +45,14 @@ namespace EPT.Modules.SimpleModule.ViewModels
                 _Text = value;
                 NotifyOfPropertyChange(() => Text);
             }
+        }
+
+        public void OpenTab()
+        {
+            ActivateItem(new TabItemViewModel
+            {
+                DisplayName = "Tab " + _count++
+            });
         }
     }
 }

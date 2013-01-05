@@ -67,8 +67,12 @@
     <Compile Include="NinjectModule\Modules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\SimpleViewModel.cs" />
+    <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="Views\SimpleView.xaml.cs">
       <DependentUpon>SimpleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabItemView.xaml.cs">
+      <DependentUpon>TabItemView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\SimpleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

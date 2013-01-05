@@ -11,7 +11,20 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="{Binding Text}" />
-    </Grid>
+    <DockPanel>
+        <Button x:Name="OpenTab"
+                Content="Open Tab" 
+                DockPanel.Dock="Top" />
+        <TabControl x:Name="Items">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DisplayName}" />
+                        <Button Content="X"
+                                cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+    </DockPanel>
 </UserControl>

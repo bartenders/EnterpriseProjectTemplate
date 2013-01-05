@@ -33,9 +33,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elysium">
-      <HintPath>..\..\..\Solutions\packages\Elysium.Theme.1.5\lib\net45\Elysium.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -71,8 +68,6 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="en\Elysium.xml" />
-    <Content Include="en\Microsoft.Expression.Drawing.xml" />
     <Resource Include="Images\Dark\appbar.acorn.png" />
     <Resource Include="Images\Dark\appbar.add.png" />
     <Resource Include="Images\Dark\appbar.adobe.acrobat.png" />
@@ -1659,14 +1654,6 @@
     <Resource Include="Images\Light\appbar.youtube.play.png" />
     <Resource Include="Images\Light\appbar.youtube.png" />
     <Resource Include="Images\Light\appbar.zune.png" />
-    <Content Include="Microsoft.Expression.Drawing.xml" />
-    <Content Include="ru\Elysium.xml" />
-    <Content Include="ru\Microsoft.Expression.Drawing.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="en\Elysium.chm" />
-    <None Include="packages.config" />
-    <None Include="ru\Elysium.chm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
