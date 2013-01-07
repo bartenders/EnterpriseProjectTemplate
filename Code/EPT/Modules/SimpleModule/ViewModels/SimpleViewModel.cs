@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
 using EPT.GUI.Helpers;
 using EPT.Infrastructure.Interfaces;
@@ -22,7 +23,16 @@ namespace EPT.Modules.SimpleModule.ViewModels
 
         protected override void OnDeactivate(bool close)
         {
+            
+            if (Items.Count > 0)
+            {
+                var result = MessageBox.Show("Unsaved items, do you really want to navigate to a different screeen?",
+                                   "unsaved changes", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                return;
+            }
+               
             base.OnDeactivate(close);
+
         }
 
         public Image Icon
@@ -34,6 +44,8 @@ namespace EPT.Modules.SimpleModule.ViewModels
         {
             get { return 20; }
         }
+
+ 
 
         private string _Text;
         public string Text
@@ -47,12 +59,37 @@ namespace EPT.Modules.SimpleModule.ViewModels
             }
         }
 
-        public void OpenTab()
+        private string _SearchText;
+        public string SearchText
         {
-            ActivateItem(new TabItemViewModel
+            get { return _SearchText ?? (_SearchText = string.Empty); }
+            set
             {
-                DisplayName = "Tab " + _count++
-            });
+                if (value == _SearchText) return;
+                _SearchText = value;
+                NotifyOfPropertyChange(() => CanSearch);
+                NotifyOfPropertyChange(() => SearchText);
+            }
+        }
+
+
+        public void Search()
+        {
+            _count++;
+
+            var searchResult = new TabItemViewModel
+                {
+                    DisplayName = string.Format("{0} ({1})", SearchText, _count)
+                };
+
+            Items.Add(searchResult);
+
+            ActivateItem(searchResult);
+        }
+
+        public bool CanSearch
+        {
+            get { return !string.IsNullOrEmpty(SearchText); }
         }
     }
 }

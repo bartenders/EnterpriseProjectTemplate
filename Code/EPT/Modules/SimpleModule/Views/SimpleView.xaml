@@ -1,10 +1,11 @@
 ﻿<UserControl x:Class="EPT.Modules.SimpleModule.Views.SimpleView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Attached="clr-namespace:EPT.GUI.Attached;assembly=EPT.GUI"
+             xmlns:ViewModels="clr-namespace:EPT.Modules.SimpleModule.ViewModels"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ViewModels="clr-namespace:EPT.Modules.SimpleModule.ViewModels" 
              cal:Bind.AtDesignTime="True"
              d:DataContext="{d:DesignInstance ViewModels:SimpleViewModel,
                                               IsDesignTimeCreatable=True}"
@@ -12,16 +13,24 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <DockPanel>
-        <Button x:Name="OpenTab"
-                Content="Open Tab" 
-                DockPanel.Dock="Top" />
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchText"
+                     Attached:Textbox.ClearTextButton="True"
+                     Attached:Textbox.Watermark="Enter Search here" />
+            <Button x:Name="Search"
+                    Grid.Column="1"
+                    Content="Search car" />
+        </Grid>
         <TabControl x:Name="Items">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding DisplayName}" />
-                        <Button Content="X"
-                                cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
+                        <Button Content="X" cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
                     </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>

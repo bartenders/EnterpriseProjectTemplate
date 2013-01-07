@@ -47,6 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attached\Textbox.cs" />
     <Compile Include="Commands\DelagateCommand.cs" />
     <Compile Include="Commands\DelegateCommand.ICommand.cs" />
     <Compile Include="Commands\DelegateCommandBase.cs" />

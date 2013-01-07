@@ -59,8 +59,8 @@
     <Reference Include="Caliburn.Micro.DevExpress">
       <HintPath>..\..\..\Solutions\packages\Caliburn.Micro.DevExpress.0.5.1.1\lib\net40-Client\Caliburn.Micro.DevExpress.dll</HintPath>
     </Reference>
-    <Reference Include="Elysium, Version=1.5.926.0, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Solutions\packages\Elysium.Theme.1.5\lib\net45\Elysium.dll</HintPath>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\..\Solutions\packages\MahApps.Metro.0.10.0.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="Ninject">
@@ -75,7 +75,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Solutions\packages\Caliburn.Micro.1.4\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\Solutions\packages\MahApps.Metro.0.10.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -106,7 +106,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ShellViewElysium.xaml">
+    <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -119,15 +119,16 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <AppDesigner Include="Properties\" />
-    <None Include="en\Elysium.chm" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ru\Elysium.chm" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\EPT.DAL.Northwind.csproj">
@@ -150,22 +151,7 @@
     <Resource Include="Images\appbar.transit.congestion.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ru\Microsoft.Expression.Drawing.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ru\Elysium.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Microsoft.Expression.Drawing.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="en\Microsoft.Expression.Drawing.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="en\Elysium.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
