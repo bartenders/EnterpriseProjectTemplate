@@ -1,8 +1,8 @@
 ﻿namespace EPT.Infrastructure.Messages
 {
-    public class MyTestMessage
+    public class EmployeeAddedMessage
     {
-        public MyTestMessage(string myMessage)
+        public EmployeeAddedMessage(string myMessage)
         {
             MyMessage = myMessage;
         }

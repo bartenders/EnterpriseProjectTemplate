@@ -1,13 +1,13 @@
 ﻿using EPT.Infrastructure.Interfaces;
-using EPT.Modules.SimpleModule.ViewModels;
+using EPT.Modules.SearchModule.ViewModels;
 
-namespace EPT.Modules.SimpleModule.NinjectModule
+namespace EPT.Modules.SearchModule.NinjectModule
 {
     public class RuntimeModule : Ninject.Modules.NinjectModule
     {
         public override void Load()
         {
-            Bind<IShellModule>().To<SimpleViewModel>().InSingletonScope();
+            Bind<IShellModule>().To<SearchViewModel>().InSingletonScope();
           }
     }
 }

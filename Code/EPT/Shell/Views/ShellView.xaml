@@ -1,20 +1,21 @@
 ﻿<Controls:MetroWindow x:Class="EPT.Shell.Views.ShellView"
-                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                 xmlns:VM="clr-namespace:EPT.Shell.ViewModels"
-                 xmlns:cal="http://www.caliburnproject.org"
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 Title="{Binding DisplayName}"
-                 Icon="\Images\appbar.transit.congestion.png"
-                 cal:Bind.AtDesignTime="True"
-                 d:DataContext="{d:DesignInstance VM:ShellViewModel,
-                                                  IsDesignTimeCreatable=True}"
-                 d:DesignHeight="267"
-                 d:DesignWidth="559"
-                 mc:Ignorable="d">
-    <Window.Resources>
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:VM="clr-namespace:EPT.Shell.ViewModels"
+                      xmlns:cal="http://www.caliburnproject.org"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      Title="{Binding DisplayName}"
+                      Icon="\Images\appbar.transit.congestion.png"
+                      cal:Bind.AtDesignTime="True"
+                      d:DataContext="{d:DesignInstance {x:Type VM:ShellViewModel},
+                                                       IsDesignTimeCreatable=True}"
+                      d:DesignHeight="267"
+                      d:DesignWidth="559"
+                      mc:Ignorable="d">
+    <Controls:MetroWindow.Resources>
         <DataTemplate x:Key="IShellModuleDataTemplate">
             <Grid d:DesignHeight="39" d:DesignWidth="197">
                 <Grid.ColumnDefinitions>
@@ -30,27 +31,62 @@
                            d:LayoutOverrides="Width" />
             </Grid>
         </DataTemplate>
-    </Window.Resources>
+    </Controls:MetroWindow.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="50" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Settings" cal:Message.Attach="LoadSettings" />
+            <Button Content="Help" cal:Message.Attach="ShowHelp" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
 
-        <ListBox ItemTemplate="{DynamicResource IShellModuleDataTemplate}"
-                 ItemsSource="{Binding Items}"
-                 SelectedItem="{Binding ActiveItem}" />
-        <GridSplitter Grid.Column="1"
-                      Width="5"
-                      HorizontalAlignment="Left" />
+    <Controls:MetroWindow.Flyouts>
+        <Controls:Flyout Header="hiiiii">
+            <Button Content="hi" />
+        </Controls:Flyout>
+        <Controls:Flyout Background="#9f000000"
+                         Header="Bakery"
+                         Position="Right">
+            <StackPanel>
+                <Controls:Tile Title="My _Cupcakes" Count="23">
+                    <Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
+                </Controls:Tile>
+            </StackPanel>
+        </Controls:Flyout>
+    </Controls:MetroWindow.Flyouts>
 
-        <ContentControl Grid.Column="1"
-                        Margin="5,0,0,0"
-                        cal:Bind.AtDesignTime="True"
-                        cal:View.Model="{Binding ActiveItem}" />
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewMouseRightButtonUp">
+            <cal:ActionMessage MethodName="ShowFlyouts" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
+    <Controls:MetroContentControl>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="50" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-    </Grid>
+            <Controls:ProgressIndicator Grid.ColumnSpan="3"
+                                        Height="7"
+                                        ProgressColour="{StaticResource AccentColorBrush}" />
 
+            <ListBox Grid.Row="1"
+                     Margin="0,0,12,0"
+                     ItemTemplate="{DynamicResource IShellModuleDataTemplate}"
+                     ItemsSource="{Binding Items}"
+                     SelectedItem="{Binding ActiveItem}" />
+            <GridSplitter Grid.RowSpan="2" HorizontalAlignment="Left" />
+            <ContentControl Grid.Row="1"
+                            Grid.Column="2"
+                            cal:Bind.AtDesignTime="True"
+                            cal:View.Model="{Binding ActiveItem}" />
+        </Grid>
+    </Controls:MetroContentControl>
 </Controls:MetroWindow>

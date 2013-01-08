@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 
-namespace EPT.Modules.SimpleModule.ViewModels
+namespace EPT.Modules.SearchModule.ViewModels
 {
     public class TabItemViewModel : Screen
     {

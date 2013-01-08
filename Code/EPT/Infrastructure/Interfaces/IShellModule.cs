@@ -16,5 +16,13 @@ namespace EPT.Infrastructure.Interfaces
         /// Gets the order priority.
         /// </summary>
         int OrderPriority { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether to Show this Module in the Menu Entry
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [active menu entry]; otherwise, <c>false</c>.
+        /// </value>
+        bool ActiveMenuEntry { get; }
     }
 }

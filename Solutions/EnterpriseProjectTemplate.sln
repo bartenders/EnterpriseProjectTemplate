@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.DAL.Northwind", "..\Cod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.EmployeeModule", "..\Code\EPT\Modules\EmployeeModule\EPT.Modules.EmployeeModule.csproj", "{EDE31841-6627-48F4-8995-9E51B94B0E5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.SimpleModule", "..\Code\EPT\Modules\SimpleModule\EPT.Modules.SimpleModule.csproj", "{1A3903C5-53F2-44CB-AEE7-7E6F34FE5AFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.SearchModule", "..\Code\EPT\Modules\SimpleModule\EPT.Modules.SearchModule.csproj", "{1A3903C5-53F2-44CB-AEE7-7E6F34FE5AFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.GUI", "..\Code\EPT\GUI\EPT.GUI.csproj", "{8AB6482C-7064-4A29-B5F5-26D99FA904DE}"
 EndProject

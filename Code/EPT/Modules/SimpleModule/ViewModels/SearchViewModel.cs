@@ -3,17 +3,22 @@ using System.Windows.Controls;
 using Caliburn.Micro;
 using EPT.GUI.Helpers;
 using EPT.Infrastructure.Interfaces;
+using EPT.Infrastructure.Messages;
 
-namespace EPT.Modules.SimpleModule.ViewModels
+namespace EPT.Modules.SearchModule.ViewModels
 {
-    public sealed class SimpleViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule
+    public sealed class SearchViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule, IHandle<EmployeeAddedMessage>
     {
         int _count = 1;
 
-        public SimpleViewModel()
+        public SearchViewModel()
         {
-            DisplayName = "Simple Module";
-            Text = "This is a databound Textelement";
+            DisplayName = "Search Module";
+        }
+
+        public override void CanClose(System.Action<bool> callback)
+        {
+            base.CanClose(callback);
         }
 
         protected override void OnActivate()
@@ -23,16 +28,13 @@ namespace EPT.Modules.SimpleModule.ViewModels
 
         protected override void OnDeactivate(bool close)
         {
-            
             if (Items.Count > 0)
             {
                 var result = MessageBox.Show("Unsaved items, do you really want to navigate to a different screeen?",
                                    "unsaved changes", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 return;
             }
-               
             base.OnDeactivate(close);
-
         }
 
         public Image Icon
@@ -45,21 +47,13 @@ namespace EPT.Modules.SimpleModule.ViewModels
             get { return 20; }
         }
 
- 
-
-        private string _Text;
-        public string Text
+        public bool ActiveMenuEntry
         {
-            get { return _Text ?? (_Text = string.Empty); }
-            set
-            {
-                if (value == _Text) return;
-                _Text = value;
-                NotifyOfPropertyChange(() => Text);
-            }
+            get { return true; }
         }
 
         private string _SearchText;
+
         public string SearchText
         {
             get { return _SearchText ?? (_SearchText = string.Empty); }
@@ -71,7 +65,6 @@ namespace EPT.Modules.SimpleModule.ViewModels
                 NotifyOfPropertyChange(() => SearchText);
             }
         }
-
 
         public void Search()
         {
@@ -90,6 +83,11 @@ namespace EPT.Modules.SimpleModule.ViewModels
         public bool CanSearch
         {
             get { return !string.IsNullOrEmpty(SearchText); }
+        }
+
+        public void Handle(EmployeeAddedMessage message)
+        {
+            this.SearchText = message.MyMessage;
         }
     }
 }

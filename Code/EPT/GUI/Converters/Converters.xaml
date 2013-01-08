@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Local="clr-namespace:EPT.GUI.Converters">
+    <BorderGapMaskConverter x:Key="BorderGapMaskConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <Local:ShellModuleToVisibilityConverter x:Key="ShellModuleToVisibilityConverter" />
+    <Local:OppositeBooleanToVisibilityConverter x:Key="OppositeBooleanToVisibilityConverter" />
+</ResourceDictionary>
+

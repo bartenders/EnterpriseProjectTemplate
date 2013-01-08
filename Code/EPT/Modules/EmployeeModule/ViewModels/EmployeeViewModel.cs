@@ -18,10 +18,11 @@ namespace EPT.Modules.EmployeeModule.ViewModels
             {
                 Address = "Adresse"
             };
-            DisplayName = "EmployeeViewModel RunTime Display Name";
+            DisplayName = "Employee Module";
         }
 
         private Employee _Employee;
+
         public Employee Employee
         {
             get { return _Employee; }
@@ -32,38 +33,12 @@ namespace EPT.Modules.EmployeeModule.ViewModels
                 NotifyOfPropertyChange(() => Employee);
             }
         }
+     
 
-
-        private ICommand _TestCommand;
-        public ICommand TestCommand
+        public void SendMessage()
         {
-            get
-            {
-                return _TestCommand ?? (_TestCommand = new DelegateCommand<EmployeeViewModel>(
-                                                     (x) =>
-                                                         {
-                                                             // Add Command Logic here
-
-                                                         },
-                                                     // Can Do Command Logic
-                                                     (x) => true));
-            }
-        }   
-
-        private ICommand _SendMessageCommand;
-        public ICommand SendMessageCommand
-        {
-            get
-            {
-                return _SendMessageCommand ?? (_SendMessageCommand = new RelayCommand<EmployeeViewModel>(
-                (x) =>
-                    {
-                        var eventAggregator = IoC.Get<IEventAggregator>();
-                        eventAggregator.Publish(new MyTestMessage("Test Message send from EmployeeViewModel"));
-                    },
-                // Can Do Command Logic
-                (x) => true));
-            }
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.Publish(new EmployeeAddedMessage("Test Message send from EmployeeViewModel"));
         }
 
 
@@ -73,5 +48,10 @@ namespace EPT.Modules.EmployeeModule.ViewModels
         }
 
         public int OrderPriority { get; private set; }
+
+        public bool ActiveMenuEntry
+        {
+            get { return true; }
+        }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Windows.Controls;
 
-namespace EPT.Modules.SimpleModule.Views
+namespace EPT.Modules.SearchModule.Views
 {
     /// <summary>
     /// Interaction logic for SimpleView.xaml
     /// </summary>
-    public partial class SimpleView : UserControl
+    public partial class SearchView : UserControl
     {
-        public SimpleView()
+        public SearchView()
         {
             InitializeComponent();
         }

@@ -55,7 +55,9 @@
     <Compile Include="Commands\Lazy.Factory.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\RelayCommandOfT.cs" />
-    <Compile Include="Converters\OppositeBooleanToVisibility.cs" />
+    <Compile Include="Converters\ShellModuleToVisibilityConverter.cs" />
+    <Compile Include="Converters\OppositeBooleanToVisibilityConverter.cs" />
+    <Compile Include="TriggerActions\EnterKeyDownEventTrigger.cs" />
     <Compile Include="TriggerActions\EventToCommand.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\UriHelper.cs" />
@@ -1655,6 +1657,18 @@
     <Resource Include="Images\Light\appbar.youtube.play.png" />
     <Resource Include="Images\Light\appbar.youtube.png" />
     <Resource Include="Images\Light\appbar.zune.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\EPT.Infrastructure.csproj">
+      <Project>{FAFE940D-3319-4012-AA15-0CF96FAB2863}</Project>
+      <Name>EPT.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Converters\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
