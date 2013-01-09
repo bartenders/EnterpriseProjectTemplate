@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using EPT.Infrastructure.Interfaces;
 
@@ -12,13 +13,13 @@ namespace EPT.GUI.Converters
             var module = value as IShellModule;
             if (module == null) return null;
 
-            return module.ActiveMenuEntry ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            return module.ActiveMenuEntry ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var visibility = (System.Windows.Visibility)value;
-            return visibility != System.Windows.Visibility.Visible;
+            var visibility = (Visibility) value;
+            return visibility != Visibility.Visible;
         }
     }
 }

@@ -1,31 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.IO;
-using System.Windows.Controls;
-using System.Security;
-using System.Runtime.InteropServices;
+using EPT.GUI.Extensions;
 using Microsoft.Win32.SafeHandles;
 
 namespace EPT.GUI.Helpers
 {
     /// <summary>
-    /// Static Helperfunctions to Create, Manipulate and Save Image Files
+    ///     Static Helperfunctions to Create, Manipulate and Save Image Files
     /// </summary>
     public static class ImageHelper
     {
-        /// <summary>
-        /// Disposes the specified RenderTargetBitmap.
-        /// </summary>
-        /// <param name="bitmap">The bitmap.</param>
-        public static void Dispose(this RenderTargetBitmap bitmap)
+        private static string _AssemblyShortName;
+
+        private static string AssemblyShortName
         {
-            bitmap = null;
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            get
+            {
+                if (_AssemblyShortName == null)
+                {
+                    Assembly assembly = typeof (ImageHelper).Assembly;
+                    _AssemblyShortName = assembly.ToString().Split(',')[0]; // Pull out the short name.
+                }
+                return _AssemblyShortName;
+            }
         }
 
         public static Image CreateImage(Uri bitmapUri, int decodePixelWidth)
@@ -44,31 +50,6 @@ namespace EPT.GUI.Helpers
             return simpleImage;
         }
 
-        /// <summary>
-        /// Copies a framework element to clipboard.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        public static void CopyToClipboard(this FrameworkElement element)
-        {
-            var bounds = VisualTreeHelper.GetDescendantBounds(element);
-            if (AreValid(bounds))
-            {
-                var visual = MeasureAndArrange(element);
-                var renderTargetBitmap = new RenderTargetBitmap((int)Math.Round(element.ActualWidth), (int)Math.Round(element.ActualHeight), 96, 96, PixelFormats.Default);
-                var drawingVisual = new DrawingVisual();
-                using (var drawingContext = drawingVisual.RenderOpen())
-                {
-                    var vb = new VisualBrush(visual);
-                    drawingContext.DrawRectangle(vb, null, new Rect(new Point(), new Size(element.ActualWidth, element.ActualHeight)));
-                    drawingContext.Close();
-                }
-                renderTargetBitmap.Render(drawingVisual);
-                Clipboard.SetImage(renderTargetBitmap);
-            }
-        }
-
-
-
         public static void SaveBufferTo(byte[] img, string directoryPath)
         {
             if (!Directory.Exists(directoryPath))
@@ -81,61 +62,8 @@ namespace EPT.GUI.Helpers
             File.WriteAllBytes(filePath, img);
         }
 
-        public static void SaveJpgTo(this BitmapSource element, string directoryPath)
-        {
-            if (element == null || directoryPath == null) return;
-            SaveBufferTo(element.ToEncodedBuffer(ImageFormat.JPG), directoryPath);
-        }
-
         /// <summary>
-        /// Renders a Visual as JPG to an specified directory location.
-        /// </summary>
-        /// <param name="element">The element.</param>
-        /// <param name="directoryName">The file location.</param>
-        public static void SaveJpgTo(this Visual element, string directoryName)
-        {
-            if (element == null) return;
-            SaveJpgTo(element.ToRenderedBitmap(), directoryName);
-        }
-
-        /// <summary>
-        /// Checks if Width and Height is valid.
-        /// </summary>
-        /// <param name="visualBounds">The visual bounds validated.</param>
-        /// <returns>True if width and height is set</returns>
-        public static bool AreValid(this Rect visualBounds)
-        {
-            return !Double.IsNaN(visualBounds.Height) && !Double.IsInfinity(visualBounds.Height) && !Double.IsNaN(visualBounds.Width) && !Double.IsInfinity(visualBounds.Width);
-        }
-
-        /// <summary>
-        /// Checks if Width and Height is valid.
-        /// </summary>
-        /// <param name="element">the FrameworkElement </param>
-        /// <returns>True if width and height is set</returns>
-        public static bool BoundsAreValid(this Visual element)
-        {
-            var bounds = VisualTreeHelper.GetDescendantBounds(element);
-            return !Double.IsNaN(bounds.Height) && !Double.IsInfinity(bounds.Height) && !Double.IsNaN(bounds.Width) && !Double.IsInfinity(bounds.Width);
-        }
-
-
-        private static string _AssemblyShortName;
-        private static string AssemblyShortName
-        {
-            get
-            {
-                if (_AssemblyShortName == null)
-                {
-                    var assembly = typeof(ImageHelper).Assembly;
-                    _AssemblyShortName = assembly.ToString().Split(',')[0]; // Pull out the short name.
-                }
-                return _AssemblyShortName;
-            }
-        }
-
-        /// <summary>
-        /// creates a pack URI.
+        ///     creates a pack URI.
         /// </summary>
         /// <param name="relativeFile">The relative file.</param>
         /// <returns></returns>
@@ -150,47 +78,7 @@ namespace EPT.GUI.Helpers
 
 
         /// <summary>
-        /// Renders a visual to a RenderTargetBitmap
-        /// </summary>
-        /// <param name="visual">The visual.</param>
-        /// <returns>RenderTargetBitmap</returns>
-        public static RenderTargetBitmap ToRenderedBitmap(this Visual visual)
-        {
-            var renderTargetBitmap = default(RenderTargetBitmap);
-
-            var bounds = VisualTreeHelper.GetDescendantBounds(visual);
-            if (bounds.AreValid())
-            {
-                renderTargetBitmap = new RenderTargetBitmap((int)Math.Round(bounds.Width), (int)Math.Round(bounds.Height), 96, 96, PixelFormats.Pbgra32);
-
-                renderTargetBitmap.Render(visual);
-                renderTargetBitmap.Freeze();
-            }
-            return renderTargetBitmap;
-        }
-
-        /// <summary>
-        /// returns a measured, arranged and layout updated UIElement
-        /// </summary>
-        /// <param name="visual">The visual.</param>
-        /// <returns></returns>
-        public static UIElement MeasureAndArrange(this UIElement visual)
-        {
-            visual.Measure(new Size
-                {
-                    Width = double.PositiveInfinity,
-                    Height = double.PositiveInfinity
-                });
-
-            visual.Arrange(new Rect(0, 0, visual.DesiredSize.Width, visual.DesiredSize.Height));
-
-            visual.UpdateLayout();
-
-            return visual;
-        }
-
-        /// <summary>
-        /// Renders a List of Visuals into a Single RendertargetBitmap wich can be Set es Bitmap/Image-Source
+        ///     Renders a List of Visuals into a Single RendertargetBitmap wich can be Set es Bitmap/Image-Source
         /// </summary>
         /// <param name="visuals">The visuals.</param>
         /// <returns>a RenderTargetBitmap that can be used as Source</returns>
@@ -200,13 +88,13 @@ namespace EPT.GUI.Helpers
             int height = 0;
             // get the width and height for the larges element
             if (visuals != null)
-                foreach (var visual in visuals)
+                foreach (Visual visual in visuals)
                 {
-                    var bounds = VisualTreeHelper.GetDescendantBounds(visual);
-                    if (AreValid(bounds))
+                    Rect bounds = VisualTreeHelper.GetDescendantBounds(visual);
+                    if (bounds.AreValid())
                     {
-                        width = (int)bounds.Width;
-                        height = (int)bounds.Height;
+                        width = (int) bounds.Width;
+                        height = (int) bounds.Height;
                     }
                     else
                     {
@@ -215,7 +103,7 @@ namespace EPT.GUI.Helpers
                 }
             var renderTargetBitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Default);
 
-            foreach (var visual in visuals)
+            foreach (Visual visual in visuals)
             {
                 renderTargetBitmap.Render(visual);
             }
@@ -225,7 +113,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Changes the pixel format.
+        ///     Changes the pixel format.
         /// </summary>
         /// <param name="bmpSource">The BitmapSource source.</param>
         /// <param name="pixFormat">The pix format.</param>
@@ -252,134 +140,14 @@ namespace EPT.GUI.Helpers
 
 
         /// <summary>
-        /// Autoe crop bitmap will remove alpha pixels from image
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <returns></returns>
-        public static CroppedBitmap AutoCropBitmap(this BitmapSource source)
-        {
-            if (source == null) throw new ArgumentException("source");
-
-            if (source.Format != PixelFormats.Bgra32)
-                source = new FormatConvertedBitmap(source,
-                                                   PixelFormats.Bgra32, null, 0);
-
-            int width = source.PixelWidth;
-            int height = source.PixelHeight;
-            int bytesPerPixel = source.Format.BitsPerPixel / 8;
-            int stride = width * bytesPerPixel;
-
-            var pixelBuffer = new byte[height * stride];
-            source.CopyPixels(pixelBuffer, stride, 0);
-
-            int cropTop = height, cropBottom = 0, cropLeft = width, cropRight = 0;
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    int offset = (y * stride + x * bytesPerPixel);
-                    //byte blue = pixelBuffer[offset];
-                    //byte green = pixelBuffer[offset + 1];
-                    //byte red = pixelBuffer[offset + 2];
-                    byte alpha = pixelBuffer[offset + 3];
-
-                    //TODO: Define a threshold when a pixel has a content
-                    bool hasContent = alpha > 10;
-
-                    if (hasContent)
-                    {
-                        cropLeft = Math.Min(x, cropLeft);
-                        cropRight = Math.Max(x, cropRight);
-                        cropTop = Math.Min(y, cropTop);
-                        cropBottom = Math.Max(y, cropBottom);
-                    }
-                }
-            }
-
-            return new CroppedBitmap(source,
-                                     new Int32Rect(cropLeft, cropTop, cropRight - cropLeft,
-                                                   cropBottom - cropTop));
-        }
-
-
-        public static RenderTargetBitmap ResizeTo(this BitmapSource source, int width, int height)
-        {
-            var rect = new Rect(0, 0, width, height);
-
-            var drawingVisual = new DrawingVisual();
-            using (var drawingContext = drawingVisual.RenderOpen())
-            {
-                drawingContext.DrawImage(source, rect);
-                drawingContext.Close();
-            }
-
-            // Use RenderTargetBitmap to resize the original image
-            var resizedImage = new RenderTargetBitmap(
-                (int)rect.Width, (int)rect.Height,  // Resized dimensions
-                96, 96,                             // Default DPI values
-                PixelFormats.Default);              // Default pixel format
-
-            resizedImage.Render(drawingVisual);
-            resizedImage.Freeze();
-
-            // Return the resized image
-            return resizedImage;
-        }
-
-        public static RenderTargetBitmap ResizeTo(this BitmapSource source, double maximumWidthOrHeight)
-        {
-            if (source == null || Double.IsInfinity(source.Width) || Double.IsInfinity(source.Height) || Double.IsNaN(source.Width) || Double.IsNaN(source.Height))
-                return null;
-
-            //  Calculate the Width/Height scale factors based on the original
-            var scaleFactor = maximumWidthOrHeight / Math.Max(source.Width, source.Height);
-            var width = (int)Math.Round(scaleFactor * source.Width);
-            var height = (int)Math.Round(scaleFactor * source.Height);
-            // Resize the original while maintaining its aspect ratio
-            return ResizeTo(source, width, height);
-        }
-
-        public static RenderTargetBitmap ResizeTo(this Visual source, double maximumWidthOrHeight)
-        {
-            var renderTargetBitmap = source.ToRenderedBitmap();
-            var rezized = renderTargetBitmap.ResizeTo(maximumWidthOrHeight);
-            renderTargetBitmap.Dispose();
-            return rezized;
-        }
-
-        public static BitmapFrame ToBitmapFrame(this BitmapSource source, double size)
-        {
-            return BitmapFrame.Create(source.ResizeTo(size));
-        }
-
-        public static BitmapFrame Resize(this BitmapFrame image, int width, int height, BitmapScalingMode scalingMode)
-        {
-            var group = new DrawingGroup();
-
-            RenderOptions.SetBitmapScalingMode(group, scalingMode);
-            group.Children.Add(new ImageDrawing(image,new Rect(0, 0, width, height)));
-            var targetVisual = new DrawingVisual();
-            using(var targetContext = targetVisual.RenderOpen())
-            {
-                targetContext.DrawDrawing(group);
-                var target = new RenderTargetBitmap(
-                    width, height, 96, 96, PixelFormats.Default);
-                targetContext.Close();
-                target.Render(targetVisual);
-                var targetFrame = BitmapFrame.Create(target);
-                return targetFrame;
-            }
-        }
-
-        /// <summary>
-        /// Combines a list of ImageSources into a single ImageSource
+        ///     Combines a list of ImageSources into a single ImageSource
         /// </summary>
         /// <param name="sources">The sources.</param>
         /// <param name="renderWidth">The width.</param>
         /// <param name="renderHeight">The height.</param>
         /// <returns></returns>
-        public static RenderTargetBitmap CombineImageSources(IList<ImageSource> sources, int renderWidth, int renderHeight)
+        public static RenderTargetBitmap CombineImageSources(IList<ImageSource> sources, int renderWidth,
+                                                             int renderHeight)
         {
             // Target Rect for the resize operation
             var rect = new Rect(0, 0, renderWidth, renderHeight);
@@ -387,9 +155,9 @@ namespace EPT.GUI.Helpers
             // Create a DrawingVisual/Context to render with
             var drawingVisual = new DrawingVisual();
 
-            using (var drawingContext = drawingVisual.RenderOpen())
+            using (DrawingContext drawingContext = drawingVisual.RenderOpen())
             {
-                foreach (var imageSource in sources)
+                foreach (ImageSource imageSource in sources)
                 {
                     drawingContext.DrawImage(imageSource, rect);
                 }
@@ -398,9 +166,9 @@ namespace EPT.GUI.Helpers
 
             // Use RenderTargetBitmap to resize the original image
             var renderTargetBitmap = new RenderTargetBitmap(
-                (int)rect.Width, (int)rect.Height,  // Resized dimensions
-                96, 96,                             // Default DPI values
-                PixelFormats.Default);              // Default pixel format
+                (int) rect.Width, (int) rect.Height, // Resized dimensions
+                96, 96, // Default DPI values
+                PixelFormats.Default); // Default pixel format
 
             renderTargetBitmap.Render(drawingVisual);
             renderTargetBitmap.Freeze();
@@ -410,7 +178,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Combines a list of ImageSources into a single ImageSource using RenderTargetBitmap
+        ///     Combines a list of ImageSources into a single ImageSource using RenderTargetBitmap
         /// </summary>
         /// <param name="sources">The sources.</param>
         /// <returns></returns>
@@ -418,37 +186,37 @@ namespace EPT.GUI.Helpers
         {
             int width = 0;
             int height = 0;
-            foreach (var imgSrc in sources)
+            foreach (ImageSource imgSrc in sources)
             {
                 if (imgSrc.Width > width)
                 {
-                    width = (int)imgSrc.Width;
+                    width = (int) imgSrc.Width;
                 }
                 if (imgSrc.Height > height)
                 {
-                    height = (int)imgSrc.Height;
+                    height = (int) imgSrc.Height;
                 }
             }
             return CombineImageSources(sources, width, height);
         }
 
 
-
         /// <summary>
-        /// Creates a BitmapFrame out of an FrameworkElement
+        ///     Creates a BitmapFrame out of an FrameworkElement
         /// </summary>
         /// <param name="element">The FrameworkElement.</param>
         /// <param name="filePath">e.g. Environment.CurrentDirectory + "\\temp.bmp"</param>
         /// <returns></returns>
         public static void CaptureBitmap(FrameworkElement element, string filePath)
         {
-            EnforceSize(element);
+            element.EnforceSize();
 
-            var renderTargetBitmap = new RenderTargetBitmap((int)element.Width, (int)element.Height, 96, 96, PixelFormats.Pbgra32);
+            var renderTargetBitmap = new RenderTargetBitmap((int) element.Width, (int) element.Height, 96, 96,
+                                                            PixelFormats.Pbgra32);
             renderTargetBitmap.Render(element);
             renderTargetBitmap.Freeze();
 
-            var bitmapFrame = BitmapFrame.Create(renderTargetBitmap);
+            BitmapFrame bitmapFrame = BitmapFrame.Create(renderTargetBitmap);
 
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(bitmapFrame);
@@ -461,25 +229,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// This method ensures that the Widths and Heights are initialized.  Sizing to content produces
-        /// Width and Height values of Double.NaN.  
-        /// </summary>
-        private static void EnforceSize(this FrameworkElement element)
-        {
-            if (element.Width.Equals(Double.NaN))
-                element.Width = element.DesiredSize.Width;
-            if (element.Height.Equals(Double.NaN))
-                element.Height = element.DesiredSize.Height;
-
-            var parent = element.Parent as FrameworkElement;
-            if (parent == null) return;
-
-            element.MaxHeight = parent.ActualHeight;
-            element.MaxWidth = parent.ActualWidth;
-        }
-
-        /// <summary>
-        /// Loads Byte Array from filePath
+        ///     Loads Byte Array from filePath
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns></returns>
@@ -489,7 +239,7 @@ namespace EPT.GUI.Helpers
             {
                 using (var br = new BinaryReader(fs))
                 {
-                    byte[] imageBytes = br.ReadBytes((int)fs.Length);
+                    byte[] imageBytes = br.ReadBytes((int) fs.Length);
 
                     br.Close();
                     return imageBytes;
@@ -497,75 +247,8 @@ namespace EPT.GUI.Helpers
             }
         }
 
-
         /// <summary>
-        /// Gets a Byte Array from an FrameworkElement
-        /// </summary>
-        /// <param name="element">The FrameworkElement.</param>
-        /// <returns>byte[]</returns>
-        public static byte[] ToPngEncodedBuffer(this FrameworkElement element)
-        {
-            //get the dimensions of the FrameworkElement
-            double margin = element.Margin.Left;
-            double width = element.ActualWidth - margin;
-            double height = element.ActualHeight - margin;
-
-            return ToPngEncodedBuffer(element, width, height);
-        }
-
-        /// <summary>
-        /// Gets a Byte Array from an FrameworkElement using PngBitmapEncoder
-        /// </summary>
-        /// <param name="element">The FrameworkElement.</param>
-        /// <param name="width">width of the rendered element</param>
-        /// <param name="height">height of the rendered element</param>
-        /// <returns>byte[]</returns>
-        public static byte[] ToPngEncodedBuffer(this FrameworkElement element, double width, double height)
-        {
-            //render FrameworkElement to bitmap
-            var rtb = new RenderTargetBitmap((int)width, (int)height, 96d, 96d, PixelFormats.Default);
-            rtb.Render(element);
-            rtb.Freeze();
-
-            //save the FrameworkElement to a memory stream
-            var encoder = new PngBitmapEncoder();
-
-            encoder.Frames.Add(BitmapFrame.Create(rtb));
-
-            byte[] bitmapBytes;
-            using (var ms = new MemoryStream())
-            {
-                encoder.Save(ms);
-                //get the bitmap bytes from the memory stream
-                ms.Position = 0;
-                bitmapBytes = ms.ToArray();
-                ms.Close();
-            }
-            return bitmapBytes;
-        }
-
-        /// <summary>
-        /// Gets a Byte Array from an BitmapImage
-        /// </summary>
-        /// <param name="imageSource">The image source.</param>
-        /// <returns></returns>
-        public static byte[] ToBuffer(this BitmapImage imageSource)
-        {
-            var stream = imageSource.StreamSource;
-            byte[] buffer = null;
-            if (stream != null && stream.Length > 0)
-            {
-                using (var br = new BinaryReader(stream))
-                {
-                    buffer = br.ReadBytes((Int32)stream.Length);
-                }
-            }
-            return buffer;
-        }
-
-
-        /// <summary>
-        /// Creates a BitmapImage from Byte Array
+        ///     Creates a BitmapImage from Byte Array
         /// </summary>
         /// <param name="bytes">The Byte Array.</param>
         /// <param name="freeze">Freeze the BitmapImage Element</param>
@@ -586,10 +269,8 @@ namespace EPT.GUI.Helpers
             return image;
         }
 
-
-
         /// <summary>
-        /// Saves a Image Buffer FilePath
+        ///     Saves a Image Buffer FilePath
         /// </summary>
         /// <param name="imageData">The image data.</param>
         /// <param name="filePath">The file path.</param>
@@ -606,15 +287,16 @@ namespace EPT.GUI.Helpers
             }
         }
 
-
         /// <summary>
-        /// Creates a BitmapSource from Byte Array.
+        ///     Creates a BitmapSource from Byte Array.
         /// </summary>
         /// <param name="imageBuffer">The image data.</param>
         /// <param name="decodePixelWidth">Width of the decode pixel. 0 for natural size</param>
         /// <param name="decodePixelHeight">Height of the decode pixel. 0 for natural size</param>
+        /// <param name="options">BitmapCacheOption</param>
         /// <returns></returns>
-        public static BitmapSource BufferToBitmapSource(byte[] imageBuffer, int decodePixelWidth, int decodePixelHeight)
+        public static BitmapSource BufferToBitmapSource(byte[] imageBuffer, int decodePixelWidth, int decodePixelHeight,
+                                                        BitmapCacheOption options = BitmapCacheOption.Default)
         {
             if (imageBuffer == null) return null;
 
@@ -632,7 +314,7 @@ namespace EPT.GUI.Helpers
                 }
                 result.StreamSource = stream;
                 result.CreateOptions = BitmapCreateOptions.None;
-                result.CacheOption = BitmapCacheOption.Default;
+                result.CacheOption = options;
                 result.EndInit();
                 if (result.CanFreeze)
                 {
@@ -644,7 +326,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Creates a BitmapSource from Byte Array.
+        ///     Creates a BitmapSource from Byte Array.
         /// </summary>
         /// <param name="imageBuffer">The image buffer.</param>
         /// <returns></returns>
@@ -654,7 +336,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Gets the encoded image data.
+        ///     Gets the encoded image data.
         /// </summary>
         /// <param name="image">The image.</param>
         /// <param name="preferredFormat">The preferred Image format.</param>
@@ -666,15 +348,14 @@ namespace EPT.GUI.Helpers
 
         public static byte[] ToEncodedBuffer(this Visual visual, ImageFormat preferredFormat, int qualityLevel = 95)
         {
-            var renderTargetBitmap = visual.ToRenderedBitmap();
-            var buffer = renderTargetBitmap.ToEncodedBuffer(preferredFormat, qualityLevel);
+            RenderTargetBitmap renderTargetBitmap = visual.ToRenderedBitmap();
+            byte[] buffer = renderTargetBitmap.ToEncodedBuffer(preferredFormat, qualityLevel);
             // For some Reason, RenderTargetBitmap Resources are released very late.. this extension method solves Memory Leaks
-            renderTargetBitmap.Dispose();
             return buffer;
         }
 
         /// <summary>
-        /// Gets the encoded image data.
+        ///     Gets the encoded image data.
         /// </summary>
         /// <param name="image">The image.</param>
         /// <param name="preferredFormat">The preferred Image format.</param>
@@ -682,8 +363,8 @@ namespace EPT.GUI.Helpers
         /// <returns></returns>
         public static byte[] ToEncodedBuffer(this BitmapSource image, ImageFormat preferredFormat, int qualityLevel)
         {
-            var result = default(byte[]);
-            var encoder = default(BitmapEncoder);
+            byte[] result = default(byte[]);
+            BitmapEncoder encoder = default(BitmapEncoder);
             if (image == null) return null;
 
             switch (preferredFormat)
@@ -724,7 +405,7 @@ namespace EPT.GUI.Helpers
                 result = new byte[stream.Length];
                 using (var br = new BinaryReader(stream))
                 {
-                    br.Read(result, 0, (int)stream.Length);
+                    br.Read(result, 0, (int) stream.Length);
                     br.Close();
                 }
                 stream.Close();
@@ -733,17 +414,17 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Gets the enum ImageFormat
+        ///     Gets the enum ImageFormat
         /// </summary>
         /// <param name="extension">The extension string.</param>
         /// <returns></returns>
         private static ImageFormat TryParseImageFormat(string extension)
         {
-            return (ImageFormat)Enum.Parse(typeof(ImageFormat), extension);
+            return (ImageFormat) Enum.Parse(typeof (ImageFormat), extension);
         }
 
         /// <summary>
-        /// Resizes the image.
+        ///     Resizes the image.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="width">The width.</param>
@@ -772,7 +453,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Crops the image.
+        ///     Crops the image.
         /// </summary>
         /// <param name="filename">The filename.</param>
         public static void CropImage(string filename)
@@ -791,8 +472,8 @@ namespace EPT.GUI.Helpers
             bool isPortrait = imageSource.Height > imageSource.Width;
             int squareLength = Math.Min(imageSource.PixelWidth, imageSource.PixelHeight);
             imageSource = new CroppedBitmap(imageSource,
-                                            new Int32Rect(isPortrait ? 0 : (int)((imageSource.PixelWidth - squareLength) / 2),
-                                                          isPortrait ? (int)((imageSource.PixelHeight - squareLength) / 2) : 0,
+                                            new Int32Rect(isPortrait ? 0 : ((imageSource.PixelWidth - squareLength)/2),
+                                                          isPortrait ? ((imageSource.PixelHeight - squareLength)/2) : 0,
                                                           squareLength, squareLength));
 
             // encode the image using the original format
@@ -807,7 +488,7 @@ namespace EPT.GUI.Helpers
         }
 
         /// <summary>
-        /// Rotates the image.
+        ///     Rotates the image.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="angle">The angle.</param>
@@ -838,12 +519,13 @@ namespace EPT.GUI.Helpers
         }
 
 
-
         /// <summary>
-        /// Flips the image.
+        ///     Flips the image.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <param name="isHorizontalFlip">if set to <c>true</c> [is horizontal flip].</param>
+        /// <param name="isHorizontalFlip">
+        ///     if set to <c>true</c> [is horizontal flip].
+        /// </param>
         public static void FlipImage(string filename, bool isHorizontalFlip)
         {
             string extension = Path.GetExtension(filename);
@@ -857,7 +539,8 @@ namespace EPT.GUI.Helpers
             BitmapSource imageSource = BufferToBitmapSource(imageBytes, 0, 0);
 
             // apply a rotate transform to the image
-            imageSource = new TransformedBitmap(imageSource, new ScaleTransform(isHorizontalFlip ? -1 : 1, isHorizontalFlip ? 1 : -1));
+            imageSource = new TransformedBitmap(imageSource,
+                                                new ScaleTransform(isHorizontalFlip ? -1 : 1, isHorizontalFlip ? 1 : -1));
 
 
             // encode the image using the original format
@@ -886,7 +569,7 @@ namespace EPT.GUI.Helpers
     }
 
     /// <summary>
-    /// http://social.msdn.microsoft.com/forums/en-US/wpf/thread/a2988ae8-e7b8-4a62-a34f-b851aaf13886#rendertargetbitmap
+    ///     http://social.msdn.microsoft.com/forums/en-US/wpf/thread/a2988ae8-e7b8-4a62-a34f-b851aaf13886#rendertargetbitmap
     /// </summary>
     internal class DeviceHelper
     {
@@ -902,7 +585,9 @@ namespace EPT.GUI.Helpers
 
     internal sealed class DCSafeHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
-        private DCSafeHandle() : base(true) { }
+        private DCSafeHandle() : base(true)
+        {
+        }
 
         protected override Boolean ReleaseHandle()
         {
@@ -925,7 +610,7 @@ namespace EPT.GUI.Helpers
 
         public static DCSafeHandle CreateDC(String lpszDriver)
         {
-            return UnsafeNativeMethods.IntCreateDC(lpszDriver, null, null, IntPtr.Zero);
+            return IntCreateDC(lpszDriver, null, null, IntPtr.Zero);
         }
     }
 }

@@ -5,5 +5,6 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Local:ShellModuleToVisibilityConverter x:Key="ShellModuleToVisibilityConverter" />
     <Local:OppositeBooleanToVisibilityConverter x:Key="OppositeBooleanToVisibilityConverter" />
+    <Local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    <Local:SourceToTabItemsConverter x:Key="SourceToTabItemsConverter" />
 </ResourceDictionary>
-

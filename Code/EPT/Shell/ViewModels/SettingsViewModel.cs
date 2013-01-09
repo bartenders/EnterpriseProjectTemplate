@@ -9,6 +9,10 @@ namespace EPT.Shell.ViewModels
         private Image _icon;
         private int _orderPriority;
 
+        public SettingsViewModel()
+        {
+            DisplayName = "Settings";
+        }
 
         public Image Icon
         {

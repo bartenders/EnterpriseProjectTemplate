@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace EPT.GUI.Converters
@@ -8,20 +9,20 @@ namespace EPT.GUI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(bool)value)
+            if (!(bool) value)
             {
-                return System.Windows.Visibility.Visible;
+                return Visibility.Visible;
             }
             else
             {
-                return System.Windows.Visibility.Collapsed;
+                return Visibility.Collapsed;
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var visibility = (System.Windows.Visibility)value;
-            return visibility != System.Windows.Visibility.Visible;
+            var visibility = (Visibility) value;
+            return visibility != Visibility.Visible;
         }
     }
 }

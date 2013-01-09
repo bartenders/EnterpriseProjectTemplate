@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>IdeaBlade.Cocktail.Utils</id>
+    <version>2.2.0</version>
+    <title>Cocktail 2012 Utils</title>
+    <authors>IdeaBlade</authors>
+    <owners>IdeaBlade</owners>
+    <licenseUrl>http://cocktail.ideablade.com/licensing</licenseUrl>
+    <projectUrl>http://cocktail.ideablade.com/</projectUrl>
+    <iconUrl>http://www.ideablade.com/images/icons/cocktail-icon-32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Cocktail is a blend of three popular frameworks: Caliburn.Micro + DevForce + Entity Framework.
+
+Line of business applications need to query and save database data, model the data as objects with business logic, and present those objects to the end user. Cocktail takes care of these fundamental responsibilities with loosely coupled, open source, and industry-leading components that are designed for change.</description>
+    <summary>Utility classes that can be used independently of Cocktail.</summary>
+    <releaseNotes>http://drc.ideablade.com/devforce-2012/bin/view/Documentation/cocktail-release-notes</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Silverlight WPF SL5 SL Coroutine Asynchronous Caliburn.Micro DevForce Cocktail</tags>
+    <references>
+      <reference file="Cocktail.Utils.dll" />
+      <reference file="Cocktail.Utils.WinRT.dll" />
+      <reference file="Cocktail.Utils.SL.dll" />
+    </references>
+  </metadata>
+</package>

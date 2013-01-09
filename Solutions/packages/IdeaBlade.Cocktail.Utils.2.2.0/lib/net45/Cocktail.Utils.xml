@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cocktail.Utils</name>
+    </assembly>
+    <members>
+        <member name="T:Cocktail.CombGuid">
+            <summary>Static class to generate sequential Guids for database keys.</summary>
+        </member>
+        <member name="M:Cocktail.CombGuid.NewGuid">
+            <summary>Generates a new sequential Guid. Algorithm is taken from NHibernate.</summary>
+            <returns>Returns a new sequential Guid</returns>
+        </member>
+        <member name="T:Cocktail.SystemTime">
+            <summary>
+            Get current DateTime for the system
+            </summary>
+            <remarks>
+            Supports testing of time-sensitive methods by enabling you to
+            control the test-time <see cref="T:System.DateTime"/> value
+            via the <see cref="F:Cocktail.SystemTime.NowFunction"/> function.
+            <para>
+            The testability of your application improves when you use SystemTime 
+            where you would conventionally call on <see cref="T:System.DateTime"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:Cocktail.SystemTime.NowFunction">
+            <summary>
+            Get or set the function that purports to tell the current DateTime on this machine
+            </summary>
+            <remarks>
+            Defaults to <see cref="P:System.DateTime.Now"/> but you can
+            replace it with a different function during testing in order to pretend
+            that machine time is different.
+            Useful for machine time sensitive tests.
+            </remarks>
+        </member>
+        <member name="M:Cocktail.SystemTime.Reset">
+            <summary>
+            Restore <see cref="F:Cocktail.SystemTime.NowFunction"/> to return the
+            current <see cref="T:System.DateTime"/> on this machine.
+            </summary>
+        </member>
+        <member name="P:Cocktail.SystemTime.Now">
+            <summary>
+            Get a <see cref="T:System.DateTime"/> object that is set to the
+            current date and time on this computer, expressed in local time.
+            </summary>
+            <remarks>
+            Same semantics as <see cref="P:System.DateTime.Now"/>
+            </remarks>
+        </member>
+        <member name="P:Cocktail.SystemTime.UtcNow">
+            <summary>
+            Get a <see cref="T:System.DateTime"/> object that is set to the
+            current date and time on this computer, 
+            expressed in Coordinated Universal Time.
+            </summary>
+            <remarks>
+            Same semantics as <see cref="P:System.DateTime.UtcNow"/>
+            </remarks> 
+        </member>
+        <member name="P:Cocktail.SystemTime.Today">
+            <summary>
+            Gets the Date component of this instance
+            </summary>
+            <remarks>
+            Same semantics as <see cref="P:System.DateTime.Today"/>
+            </remarks>        
+        </member>
+    </members>
+</doc>

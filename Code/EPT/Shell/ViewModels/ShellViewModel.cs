@@ -16,8 +16,11 @@ namespace EPT.Shell.ViewModels
         private readonly SettingsViewModel _settingsView;
         private readonly AboutViewModel _aboutView;
 
-        public ShellViewModel()
+        public ShellViewModel(AboutViewModel aboutView, SettingsViewModel settingsView)
         {
+            _aboutView = aboutView;
+            _settingsView = settingsView;
+
             DisplayName = "Enterprise Project Template";
 
             var shellModules = DesignerProperties.GetIsInDesignMode(new DependencyObject()) ? GetDesignTimeModules() : IoC.GetAllInstances(typeof(IShellModule)).Cast<IShellModule>().Where(m => m.ActiveMenuEntry).OrderBy(x => x.OrderPriority).ToList();
@@ -25,16 +28,6 @@ namespace EPT.Shell.ViewModels
             ThemeManager.ChangeTheme(Application.Current, ThemeManager.DefaultAccents.FirstOrDefault(a => a.Name == "Blue"), Theme.Light);
 
             ScreenExtensions.TryActivate(this);
-
-            _settingsView = new SettingsViewModel
-                {
-                    DisplayName = "Settings"
-                };
-
-            _aboutView = new AboutViewModel
-                {
-                    DisplayName = "About"
-                };
 
             Items.AddRange(shellModules);
 
@@ -48,7 +41,7 @@ namespace EPT.Shell.ViewModels
             ActiveItem = _settingsView;
         }
 
-        public void ShowHelp()
+        public void ShowAbout()
         {
             ActiveItem = _aboutView;
         }

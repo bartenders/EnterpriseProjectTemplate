@@ -4,15 +4,21 @@ using Caliburn.Micro;
 using EPT.GUI.Helpers;
 using EPT.Infrastructure.Interfaces;
 using EPT.Infrastructure.Messages;
+using Ninject;
 
 namespace EPT.Modules.SearchModule.ViewModels
 {
     public sealed class SearchViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule, IHandle<EmployeeAddedMessage>
     {
-        int _count = 1;
+        private string _SearchText;
 
-        public SearchViewModel()
+		public SearchViewModel() {
+			
+		}
+		
+        public SearchViewModel(IEventAggregator aggregator)
         {
+            aggregator.Subscribe(this);
             DisplayName = "Search Module";
         }
 
@@ -21,27 +27,13 @@ namespace EPT.Modules.SearchModule.ViewModels
             base.CanClose(callback);
         }
 
-        protected override void OnActivate()
-        {
-            base.OnActivate();
-        }
-
-        protected override void OnDeactivate(bool close)
-        {
-            if (Items.Count > 0)
-            {
-                var result = MessageBox.Show("Unsaved items, do you really want to navigate to a different screeen?",
-                                   "unsaved changes", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                return;
-            }
-            base.OnDeactivate(close);
-        }
-
         public Image Icon
         {
             get { return ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.box.png"), 48);  }
         }
 
+        
+        
         public int OrderPriority
         {
             get { return 20; }
@@ -51,8 +43,6 @@ namespace EPT.Modules.SearchModule.ViewModels
         {
             get { return true; }
         }
-
-        private string _SearchText;
 
         public string SearchText
         {
@@ -66,18 +56,13 @@ namespace EPT.Modules.SearchModule.ViewModels
             }
         }
 
-        public void Search()
+      public void Search()
         {
-            _count++;
-
             var searchResult = new TabItemViewModel
                 {
-                    DisplayName = string.Format("{0} ({1})", SearchText, _count)
+                    DisplayName = string.Format("{0} ({1})", SearchText, Items.Count)
                 };
-
-            Items.Add(searchResult);
-
-            ActivateItem(searchResult);
+            this.ActiveItem = searchResult;
         }
 
         public bool CanSearch

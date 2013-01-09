@@ -9,7 +9,7 @@
                     <Shell:NinjectBootstrapper x:Key="bootstrapper" />
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/EPT.GUI;component/Converters/Converters.xaml" />
-                        <ResourceDictionary Source="Resources\Icons.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/EPT.GUI;component/Themes/CoreControls/Generic.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

@@ -36,7 +36,7 @@
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <Button Content="Settings" cal:Message.Attach="LoadSettings" />
-            <Button Content="Help" cal:Message.Attach="ShowHelp" />
+            <Button Content="About" cal:Message.Attach="ShowAbout" />
         </Controls:WindowCommands>
     </Controls:MetroWindow.WindowCommands>
 
@@ -49,7 +49,6 @@
                          Position="Right">
             <StackPanel>
                 <Controls:Tile Title="My _Cupcakes" Count="23">
-                    <Controls:MetroImage Source="{StaticResource appbar_cupcake}" />
                 </Controls:Tile>
             </StackPanel>
         </Controls:Flyout>
@@ -72,7 +71,6 @@
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
             <Controls:ProgressIndicator Grid.ColumnSpan="3"
                                         Height="7"
                                         ProgressColour="{StaticResource AccentColorBrush}" />

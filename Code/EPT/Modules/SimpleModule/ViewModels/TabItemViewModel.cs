@@ -1,17 +1,18 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
 
 namespace EPT.Modules.SearchModule.ViewModels
 {
     public class TabItemViewModel : Screen
     {
-        public override void CanClose(System.Action<bool> callback)
+        public TabItemViewModel()
         {
-            base.CanClose(callback);
+            
         }
 
-        protected override void OnDeactivate(bool close)
+        public override void TryClose(bool? dialogResult)
         {
-            base.OnDeactivate(close);
+            base.TryClose();
         }
     }
 }

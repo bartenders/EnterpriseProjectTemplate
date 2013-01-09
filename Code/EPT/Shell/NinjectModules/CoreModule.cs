@@ -9,6 +9,7 @@ namespace EPT.Shell.NinjectModules
     {
         public override void Load()
         {
+            
             Bind<IEventAggregator>()
                 .To<EventAggregator>()
                 .InSingletonScope();
@@ -18,6 +19,9 @@ namespace EPT.Shell.NinjectModules
             Bind<IShell>()
                 .To<ShellViewModel>()
                 .InSingletonScope();
+
+            Bind<AboutViewModel>().ToSelf().InSingletonScope();
+            Bind<SettingsViewModel>().ToSelf().InSingletonScope();
         }
     }
 }

@@ -45,18 +45,25 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\..\..\Solutions\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\..\Solutions\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attached\Textbox.cs" />
-    <Compile Include="Commands\DelagateCommand.cs" />
-    <Compile Include="Commands\DelegateCommand.ICommand.cs" />
-    <Compile Include="Commands\DelegateCommandBase.cs" />
-    <Compile Include="Commands\InvalidateCommandAction.cs" />
-    <Compile Include="Commands\Lazy.Factory.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Commands\RelayCommandOfT.cs" />
+    <Compile Include="Behaviors\BindablePasswordBehavior.cs" />
+    <Compile Include="Behaviors\InitialFocusBehavior.cs" />
+    <Compile Include="Behaviors\ScrollIntoViewBehavior.cs" />
+    <Compile Include="Behaviors\SelectAllOnFocusBehavior.cs" />
+    <Compile Include="Controls\SearchTextBox.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ShellModuleToVisibilityConverter.cs" />
     <Compile Include="Converters\OppositeBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\SourceToTabItemsConverter.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="TriggerActions\EnterKeyDownEventTrigger.cs" />
     <Compile Include="TriggerActions\EventToCommand.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
@@ -65,10 +72,11 @@
     <Compile Include="Helpers\VersionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Behaviors\" />
-    <Folder Include="Controls\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Themes\" />
+    <None Include="Images\Images.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Images.generated.xaml</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Dark\appbar.acorn.png" />
@@ -580,7 +588,6 @@
     <Resource Include="Images\Dark\appbar.page.pdf.png" />
     <Resource Include="Images\Dark\appbar.page.pdf.text.png" />
     <Resource Include="Images\Dark\appbar.page.png" />
-    <Resource Include="Images\Dark\appbar.page.png.png" />
     <Resource Include="Images\Dark\appbar.page.powerpoint.png" />
     <Resource Include="Images\Dark\appbar.page.question.png" />
     <Resource Include="Images\Dark\appbar.page.search.png" />
@@ -1373,7 +1380,6 @@
     <Resource Include="Images\Light\appbar.page.pdf.png" />
     <Resource Include="Images\Light\appbar.page.pdf.text.png" />
     <Resource Include="Images\Light\appbar.page.png" />
-    <Resource Include="Images\Light\appbar.page.png.png" />
     <Resource Include="Images\Light\appbar.page.powerpoint.png" />
     <Resource Include="Images\Light\appbar.page.question.png" />
     <Resource Include="Images\Light\appbar.page.search.png" />
@@ -1669,6 +1675,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Images\Images.generated.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\CoreControls\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,6 +9,10 @@ namespace EPT.Shell.ViewModels
         private Image _icon;
         private int _orderPriority;
 
+        public AboutViewModel()
+        {
+            DisplayName = "About";
+        }
 
         public Image Icon
         {
@@ -24,5 +28,7 @@ namespace EPT.Shell.ViewModels
         {
             get { return false; }
         }
+
+
     }
 }
