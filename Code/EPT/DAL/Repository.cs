@@ -51,7 +51,7 @@ namespace EPT.DAL.Northwind
 
         private static EntityConnection GetEntityConnection()
         {
-            return Connection.CreateConnection(typeof(Repository).Assembly, "Northwind", GetConnectionString());
+            return Connection.CreateConnectionString(typeof(Repository).Assembly, "Northwind", GetConnectionString());
         }
 
         //TODO: Replace with configuration logic

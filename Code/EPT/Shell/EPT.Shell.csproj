@@ -59,6 +59,12 @@
     <Reference Include="Caliburn.Micro.DevExpress">
       <HintPath>..\..\..\Solutions\packages\Caliburn.Micro.DevExpress.0.5.1.1\lib\net40-Client\Caliburn.Micro.DevExpress.dll</HintPath>
     </Reference>
+    <Reference Include="Caliburn.Micro.Logging">
+      <HintPath>..\..\..\Solutions\packages\Caliburn.Micro.Logging.1.5.0.0\lib\net40\Caliburn.Micro.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Logging.NLog">
+      <HintPath>..\..\..\Solutions\packages\Caliburn.Micro.Logging.NLog.1.5.0.0\lib\net40\Caliburn.Micro.Logging.NLog.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\..\Solutions\packages\FluentValidation.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
@@ -100,6 +106,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs" />
     <Compile Include="NinjectBootstrapper.cs" />
     <Compile Include="NinjectModules\CoreModule.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

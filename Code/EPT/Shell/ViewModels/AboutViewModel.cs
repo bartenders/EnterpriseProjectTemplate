@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using Caliburn.Micro;
-using EPT.Infrastructure.Interfaces;
+using EPT.Infrastructure.API;
 
 namespace EPT.Shell.ViewModels
 {

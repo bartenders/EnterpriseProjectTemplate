@@ -1,8 +1,8 @@
 ﻿using Caliburn.Micro;
 using EPT.DAL.Northwind;
-using EPT.Modules.EmployeeModule.InternalMessages;
+using EPT.Modules.MasterDataModule.InternalMessages;
 
-namespace EPT.Modules.EmployeeModule.ViewModels
+namespace EPT.Modules.MasterDataModule.ViewModels
 {
     public class OrdersViewModel : Screen, IHandle<CustomerChangedMessage>
     {
@@ -18,6 +18,7 @@ namespace EPT.Modules.EmployeeModule.ViewModels
         {
             _repository = repository;
             _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
         }
 
         protected override void OnActivate()

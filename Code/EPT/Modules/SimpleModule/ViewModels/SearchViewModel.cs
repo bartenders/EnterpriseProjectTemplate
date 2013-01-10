@@ -1,39 +1,33 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using EPT.GUI.Helpers;
-using EPT.Infrastructure.Interfaces;
+using EPT.Infrastructure.API;
 using EPT.Infrastructure.Messages;
-using Ninject;
+using System.Windows.Controls;
 
 namespace EPT.Modules.SearchModule.ViewModels
 {
     public sealed class SearchViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule, IHandle<EmployeeAddedMessage>
     {
-        private string _SearchText;
+        private string _searchText;
+        private ILog _log;
 
-		public SearchViewModel() {
-			
-		}
-		
-        public SearchViewModel(IEventAggregator aggregator)
+        public SearchViewModel()
         {
-            aggregator.Subscribe(this);
             DisplayName = "Search Module";
         }
 
-        public override void CanClose(System.Action<bool> callback)
+        public SearchViewModel(IEventAggregator aggregator)
+            : this()
         {
-            base.CanClose(callback);
+            aggregator.Subscribe(this);
+            _log = LogManager.GetLog(typeof(IShellModule));
         }
 
         public Image Icon
         {
-            get { return ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.box.png"), 48);  }
+            get { return ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.box.png"), 48); }
         }
 
-        
-        
         public int OrderPriority
         {
             get { return 20; }
@@ -46,17 +40,18 @@ namespace EPT.Modules.SearchModule.ViewModels
 
         public string SearchText
         {
-            get { return _SearchText ?? (_SearchText = string.Empty); }
+            get { return _searchText ?? (_searchText = string.Empty); }
             set
             {
-                if (value == _SearchText) return;
-                _SearchText = value;
+                if (value == _searchText) return;
+                _searchText = value;
+                _log.Info("{0} text changed", value);
                 NotifyOfPropertyChange(() => CanSearch);
                 NotifyOfPropertyChange(() => SearchText);
             }
         }
 
-      public void Search()
+        public void Search()
         {
             var searchResult = new TabItemViewModel
                 {

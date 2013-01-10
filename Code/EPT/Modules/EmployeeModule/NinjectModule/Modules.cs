@@ -1,16 +1,16 @@
 ﻿using EPT.DAL.Northwind;
-using EPT.Infrastructure.Interfaces;
-using EPT.Modules.EmployeeModule.ViewModels;
+using EPT.Infrastructure.API;
+using EPT.Modules.MasterDataModule.ViewModels;
 
-namespace EPT.Modules.EmployeeModule.NinjectModule
+namespace EPT.Modules.MasterDataModule.NinjectModule
 {
     public class RuntimeModule : Ninject.Modules.NinjectModule
     {
         public override void Load()
         {
-            Bind<IShellModule>().To<EmployeeViewModel>().InSingletonScope();
             Bind<Repository>().ToSelf().InSingletonScope();
-            Bind<CustomerViewModel>().ToSelf().InSingletonScope();
+            Bind<IShellModule>().To<EmployeeViewModel>().InSingletonScope();
+            Bind<IShellModule>().To<CustomerViewModel>().InSingletonScope();
             Bind<OrdersViewModel>().ToSelf().InSingletonScope();
           }
     }

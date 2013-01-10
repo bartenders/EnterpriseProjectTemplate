@@ -11,7 +11,7 @@ namespace EPT.GUI.Helpers
 
 
         /// <summary>
-        /// Gets the pack URI of a Image relative to EPT.GUI.
+        /// Gets a pack URI of an Image relative to EPT.GUI.
         /// </summary>
         /// <param name="relativeFile">The relative filename e.g. (Images\Dark\appbar.acorn.png).</param>
         /// <returns>a formated Pack Uri</returns>

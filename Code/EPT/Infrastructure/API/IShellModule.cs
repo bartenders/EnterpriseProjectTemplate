@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace EPT.Infrastructure.Interfaces
+namespace EPT.Infrastructure.API
 {
     /// <summary>
     /// Shell Modules are top level Modules

@@ -5,7 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
-using EPT.Infrastructure.Interfaces;
+using Caliburn.Micro.Logging.NLog;
+using EPT.Infrastructure.API;
 using EPT.Shell.Properties;
 using Ninject;
 
@@ -16,6 +17,11 @@ namespace EPT.Shell
         private readonly KernelBase _kernel = new StandardKernel();
         private byte[] _PublicKey;
 
+
+        static NinjectBootstrapper()
+        {
+            LogManager.GetLog = type => new NLogLogger(type);
+        }
 
         /// <summary>
         /// Initializes the <see cref="NinjectBootstrapper" /> class.

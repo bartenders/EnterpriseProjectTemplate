@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Infrastructure", "..\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.DAL.Northwind", "..\Code\EPT\DAL\EPT.DAL.Northwind.csproj", "{1CB44494-9A33-421E-B7AD-BDF6CA664B13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.EmployeeModule", "..\Code\EPT\Modules\EmployeeModule\EPT.Modules.EmployeeModule.csproj", "{EDE31841-6627-48F4-8995-9E51B94B0E5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.MasterDataModule", "..\Code\EPT\Modules\EmployeeModule\EPT.Modules.MasterDataModule.csproj", "{EDE31841-6627-48F4-8995-9E51B94B0E5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.SearchModule", "..\Code\EPT\Modules\SimpleModule\EPT.Modules.SearchModule.csproj", "{1A3903C5-53F2-44CB-AEE7-7E6F34FE5AFE}"
 EndProject

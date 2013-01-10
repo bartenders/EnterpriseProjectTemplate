@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPT.Modules.EmployeeModule.Properties {
+namespace EPT.Modules.MasterDataModule.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

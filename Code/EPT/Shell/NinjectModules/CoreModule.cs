@@ -1,5 +1,7 @@
 ﻿using Caliburn.Micro;
-using EPT.Infrastructure.Interfaces;
+using Caliburn.Micro.Logging;
+using Caliburn.Micro.Logging.NLog;
+using EPT.Infrastructure.API;
 using EPT.Shell.ViewModels;
 using Ninject.Modules;
 
@@ -19,7 +21,6 @@ namespace EPT.Shell.NinjectModules
             Bind<IShell>()
                 .To<ShellViewModel>()
                 .InSingletonScope();
-
             Bind<AboutViewModel>().ToSelf().InSingletonScope();
             Bind<SettingsViewModel>().ToSelf().InSingletonScope();
         }

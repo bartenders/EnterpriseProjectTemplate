@@ -8,8 +8,8 @@
     <ProjectGuid>{EDE31841-6627-48F4-8995-9E51B94B0E5E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EPT.Modules.EmployeeModule</RootNamespace>
-    <AssemblyName>EPT.Modules.EmployeeModule</AssemblyName>
+    <RootNamespace>EPT.Modules.MasterDataModule</RootNamespace>
+    <AssemblyName>EPT.Modules.MasterDataModule</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

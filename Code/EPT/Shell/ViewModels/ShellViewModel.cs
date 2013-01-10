@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using Caliburn.Micro;
 using System.Linq;
 using EPT.GUI.Helpers;
-using EPT.Infrastructure.Interfaces;
+using EPT.Infrastructure.API;
 using MahApps.Metro;
 
 

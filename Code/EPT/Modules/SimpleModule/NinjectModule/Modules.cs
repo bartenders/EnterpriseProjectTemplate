@@ -1,4 +1,4 @@
-﻿using EPT.Infrastructure.Interfaces;
+﻿using EPT.Infrastructure.API;
 using EPT.Modules.SearchModule.ViewModels;
 
 namespace EPT.Modules.SearchModule.NinjectModule

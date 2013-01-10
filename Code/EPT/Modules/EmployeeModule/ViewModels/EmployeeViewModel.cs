@@ -2,10 +2,10 @@
 using Caliburn.Micro;
 using EPT.DAL.Northwind;
 using EPT.GUI.Helpers;
-using EPT.Infrastructure.Interfaces;
+using EPT.Infrastructure.API;
 using EPT.Infrastructure.Messages;
 
-namespace EPT.Modules.EmployeeModule.ViewModels
+namespace EPT.Modules.MasterDataModule.ViewModels
 {
     public sealed class EmployeeViewModel : Conductor<EmployeeViewModel>.Collection.AllActive, IShellModule
     {
@@ -14,7 +14,6 @@ namespace EPT.Modules.EmployeeModule.ViewModels
         private Employee _employee;
         private BindableCollection<Employee> _employees;
         private Employee _selectedEmployee;
-        private readonly CustomerViewModel _customerViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmployeeViewModel" /> class.
@@ -24,11 +23,10 @@ namespace EPT.Modules.EmployeeModule.ViewModels
            
         }
 
-        public EmployeeViewModel(IEventAggregator aggregator, Repository employeeRepository, CustomerViewModel customerViewModel)
+        public EmployeeViewModel(IEventAggregator aggregator, Repository employeeRepository)
         {
             _aggregator = aggregator;
             _employeeRepository = employeeRepository;
-            _customerViewModel = customerViewModel;
 
             _employee = new Employee()
             {
@@ -37,15 +35,7 @@ namespace EPT.Modules.EmployeeModule.ViewModels
             DisplayName = "Employee Module";
         }
 
-        public CustomerViewModel CustomerViewModel
-        {
-            get { return _customerViewModel; }
-        }
 
-
-        /// <summary>
-        /// Called when activating.
-        /// </summary>
         protected override void OnActivate()
         {
             //TODO BusyTicket ziehen für Async Operation
