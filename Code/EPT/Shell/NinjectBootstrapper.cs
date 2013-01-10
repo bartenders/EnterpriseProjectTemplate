@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using Caliburn.Micro.Logging.NLog;
+using EPT.Infrastructure.API;
+using EPT.Infrastructure.Input;
+using EPT.Shell.Properties;
+using Ninject;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using Caliburn.Micro;
-using Caliburn.Micro.Logging.NLog;
-using EPT.Infrastructure.API;
-using EPT.Shell.Properties;
-using Ninject;
+using System.Windows.Input;
 
 namespace EPT.Shell
 {
@@ -22,14 +24,6 @@ namespace EPT.Shell
         {
             LogManager.GetLog = type => new NLogLogger(type);
         }
-
-        /// <summary>
-        /// Initializes the <see cref="NinjectBootstrapper" /> class.
-        /// </summary>
-        //static NinjectBootstrapper()
-        //{
-        //    Caliburn.Micro.DevExpress.DXConventions.Install();
-        //}
 
         /// <summary>
         /// Configure the framework and setup IoC container.
@@ -48,14 +42,46 @@ namespace EPT.Shell
             var moduleAssemblies = moduleFileInfos.Select(file => Assembly.LoadFile(file.FullName)).Concat(new[] { this.GetType().Assembly }).ToArray();
 
             var validModuleAssembiles = moduleAssemblies.Where(CheckAssemblySignature).ToList();
-            
+
             // Load Modules via Ninject Kernel
             _kernel.Load(validModuleAssembiles);
 
             // Import Assemblys into Caliburn for inspection
             AssemblySource.Instance.AddRange(validModuleAssembiles);
 
+            SetupInputKeyBindingConvention();
+
             base.Configure();
+        }
+
+        /// <summary>
+        /// Setup the ConventionManager for input keybindings.
+        /// </summary>
+        private static void SetupInputKeyBindingConvention()
+        {
+            var trigger = Parser.CreateTrigger;
+
+            Parser.CreateTrigger = (target, triggerText) =>
+            {
+                if (triggerText == null)
+                {
+                    var defaults = ConventionManager.GetElementConvention(target.GetType());
+                    return defaults.CreateTrigger();
+                }
+
+                var triggerDetail = triggerText
+                    .Replace("[", string.Empty)
+                    .Replace("]", string.Empty);
+
+                var splits = triggerDetail.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                if (splits[0] == "Key")
+                {
+                    var key = (Key)Enum.Parse(typeof(Key), splits[1], true);
+                    return new KeyTrigger { Key = key };
+                }
+
+                return trigger(target, triggerText);
+            };
         }
 
         /// <summary>
@@ -86,7 +112,7 @@ namespace EPT.Shell
 
         protected override object GetInstance(Type service, string key)
         {
-           return  _kernel.Get(service);
+            return _kernel.Get(service);
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)

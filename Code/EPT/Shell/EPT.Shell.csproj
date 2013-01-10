@@ -108,7 +108,7 @@
     </ApplicationDefinition>
     <Compile Include="Caliburn\Micro\Logging\DebugLogger.cs" />
     <Compile Include="NinjectBootstrapper.cs" />
-    <Compile Include="NinjectModules\CoreModule.cs" />
+    <Compile Include="IoC_Modules\CoreModule.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

@@ -44,9 +44,6 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\net40\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="Cocktail.Utils">
-      <HintPath>..\..\..\Solutions\packages\IdeaBlade.Cocktail.Utils.2.2.0\lib\net45\Cocktail.Utils.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Solutions\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -78,6 +75,11 @@
     <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="API\IShell.cs" />
     <Compile Include="API\IShellModule.cs" />
+    <Compile Include="Input\KeySequence.cs" />
+    <Compile Include="Input\KeyTrigger.cs" />
+    <Compile Include="Input\MultiKeyBinding.cs" />
+    <Compile Include="Input\MultiKeyGesture.cs" />
+    <Compile Include="Input\MultiKeyGestureConverter.cs" />
     <Compile Include="Messages\EmployeeAddedMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,7 +88,6 @@
     <Folder Include="Validation\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

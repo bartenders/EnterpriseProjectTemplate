@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Caliburn.Micro-Contrib</id>
+    <version>1.0.2</version>
+    <authors>Kevin Mees</authors>
+    <owners>Kevin Mees</owners>
+    <licenseUrl>http://github.com/kmees/CMContrib/blob/master/License.txt</licenseUrl>
+    <projectUrl>http://github.com/kmees/CMContrib</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extensions for the Caliburn.Micro Framework</description>
+    <tags>Caliburn Caliburn.Micro MVVM Silverlight WPF</tags>
+    <dependencies>
+      <dependency id="Caliburn.Micro" version="1.3.1" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Drawing" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.ComponentModel.Composition" targetFramework=".NETFramework4.0, Silverlight4.0, Silverlight5.0" />
+      <frameworkAssembly assemblyName="System.ComponentModel.Composition.Initialization" targetFramework="Silverlight4.0, Silverlight5.0" />
+    </frameworkAssemblies>
+    <references>
+      <reference file="Caliburn.Micro.Contrib.dll" />
+      <reference file="Caliburn.Micro.dll" />
+      <reference file="DesignTimeProperties.WPF.dll" />
+      <reference file="System.Windows.Interactivity.dll" />
+      <reference file="DesignTimeProperties.Silverlight.dll" />
+      <reference file="System.ComponentModel.Composition.dll" />
+      <reference file="System.ComponentModel.Composition.Initialization.dll" />
+      <reference file="System.Windows.Controls.dll" />
+    </references>
+  </metadata>
+</package>

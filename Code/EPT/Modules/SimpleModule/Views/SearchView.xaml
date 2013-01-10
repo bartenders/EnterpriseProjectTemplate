@@ -21,8 +21,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchText"
-                     Controls:TextboxHelper.ClearTextButton="True"
-                     Controls:TextboxHelper.Watermark="Enter serch condition here">
+                     Controls:TextboxHelper.Watermark="Enter serch condition here"
+                     cal:Message.Attach="[Key Enter] = [Search]">
                 <i:Interaction.Behaviors>
                     <Behaviors:InitialFocusBehavior />
                 </i:Interaction.Behaviors>

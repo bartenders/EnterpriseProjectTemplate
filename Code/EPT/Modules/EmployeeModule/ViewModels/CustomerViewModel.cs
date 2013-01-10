@@ -1,9 +1,9 @@
-﻿using System.Windows.Controls;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using EPT.DAL.Northwind;
 using EPT.GUI.Helpers;
 using EPT.Infrastructure.API;
 using EPT.Modules.MasterDataModule.InternalMessages;
+using System.Windows.Controls;
 
 namespace EPT.Modules.MasterDataModule.ViewModels
 {
@@ -11,12 +11,13 @@ namespace EPT.Modules.MasterDataModule.ViewModels
     {
         private readonly Repository _repository;
         private readonly IEventAggregator _eventAggregator;
-  
+
         public CustomerViewModel()
         {
             DisplayName = "Customers";
         }
-        public CustomerViewModel(Repository repository, IEventAggregator eventAggregator):this()
+        public CustomerViewModel(Repository repository, IEventAggregator eventAggregator)
+            : this()
         {
             _repository = repository;
             _eventAggregator = eventAggregator;
@@ -30,16 +31,17 @@ namespace EPT.Modules.MasterDataModule.ViewModels
             {
                 if (value == _selectedCustomer) return;
                 _selectedCustomer = value;
-                //TODO Create a order factory
+                //TODO Create a order factory?
                 if (value != null)
                 {
                     ActiveItem = IoC.Get<OrdersViewModel>();
                 }
+                //TODO the customer should be injected by ninject factory instead of eventaggregator
                 _eventAggregator.Publish(new CustomerChangedMessage(value));
                 NotifyOfPropertyChange(() => SelectedCustomer);
             }
         }
-        
+
         private BindableCollection<Customer> _customers;
         public BindableCollection<Customer> Customers
         {
@@ -62,7 +64,7 @@ namespace EPT.Modules.MasterDataModule.ViewModels
 
         protected override void OnActivate()
         {
-            InitializeData();            
+            InitializeData();
 
             base.OnActivate();
         }

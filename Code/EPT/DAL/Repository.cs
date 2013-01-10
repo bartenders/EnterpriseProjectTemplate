@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using EPT.Infrastructure.Data;
+using System.Collections.Generic;
 using System.Data.EntityClient;
 using System.Linq;
-using EPT.Infrastructure.Data;
 
 namespace EPT.DAL.Northwind
 {
@@ -43,9 +43,10 @@ namespace EPT.DAL.Northwind
         {
             using (var context = new NorthwindEntities(GetEntityConnection()))
             {
-                return (from item in context.Orders
-                        where item.CustomerID.Equals(customerId)
-                        select item).ToList();
+                var orders = (from item in context.Orders
+                              where item.CustomerID.Equals(customerId)
+                              select item).ToList();
+                return orders;
             }
         }
 

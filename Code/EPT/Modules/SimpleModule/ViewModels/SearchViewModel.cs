@@ -1,12 +1,11 @@
 ﻿using Caliburn.Micro;
 using EPT.GUI.Helpers;
 using EPT.Infrastructure.API;
-using EPT.Infrastructure.Messages;
 using System.Windows.Controls;
 
 namespace EPT.Modules.SearchModule.ViewModels
 {
-    public sealed class SearchViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule, IHandle<EmployeeAddedMessage>
+    public sealed class SearchViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule
     {
         private string _searchText;
         private ILog _log;
@@ -45,7 +44,6 @@ namespace EPT.Modules.SearchModule.ViewModels
             {
                 if (value == _searchText) return;
                 _searchText = value;
-                _log.Info("{0} text changed", value);
                 NotifyOfPropertyChange(() => CanSearch);
                 NotifyOfPropertyChange(() => SearchText);
             }
@@ -63,11 +61,6 @@ namespace EPT.Modules.SearchModule.ViewModels
         public bool CanSearch
         {
             get { return !string.IsNullOrEmpty(SearchText); }
-        }
-
-        public void Handle(EmployeeAddedMessage message)
-        {
-            this.SearchText = message.MyMessage;
         }
     }
 }

@@ -15,7 +15,7 @@
             <RowDefinition Height="25" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <CoreControls:SearchTextBox>
+        <CoreControls:SearchTextBox cal:Message.Attach="[Key Enter] = [Search]">
             <i:Interaction.Behaviors>
                 <Behaviors:InitialFocusBehavior />
             </i:Interaction.Behaviors>
