@@ -1,34 +1,49 @@
-﻿using System.Windows.Controls;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
+using EPT.GUI.Helpers;
 using EPT.Infrastructure.API;
+using EPT.Infrastructure.Messages;
+using System.Windows.Controls;
+using Action = System.Action;
 
 namespace EPT.Shell.ViewModels
 {
-    public class AboutViewModel: Screen, IShellModule
+    public class AboutViewModel : Screen, IWindowCommand
     {
-        private Image _icon;
-        private int _orderPriority;
+        private readonly IEventAggregator _eventAggregator;
 
-        public AboutViewModel()
+        public AboutViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             DisplayName = "About";
         }
 
         public Image Icon
         {
-            get { return _icon; }
+            get { return ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.information.circle.png"), 48); }
         }
 
-        public int OrderPriority
+        public string CommandDisplayName
         {
-            get { return _orderPriority; }
+            get { return DisplayName; }
         }
 
-        public bool ActiveMenuEntry
+        /// <summary>
+        /// Will be executed on the Command Click
+        /// </summary>
+        /// <value>
+        /// The command action.
+        /// </value>
+        public Action CommandAction
         {
-            get { return false; }
+            get
+            {
+                return () => _eventAggregator.Publish(new ShowScreenMessage(this));
+            }
         }
 
-
+        public void NavigateBack()
+        {
+            _eventAggregator.Publish(new ShowScreenMessage(null));
+        }
     }
 }

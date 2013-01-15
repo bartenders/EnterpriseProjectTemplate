@@ -29,7 +29,7 @@ namespace EPT.Modules.SearchModule.ViewModels
 
         public int OrderPriority
         {
-            get { return 20; }
+            get { return 5; }
         }
 
         public bool ActiveMenuEntry
@@ -44,7 +44,6 @@ namespace EPT.Modules.SearchModule.ViewModels
             {
                 if (value == _searchText) return;
                 _searchText = value;
-                NotifyOfPropertyChange(() => CanSearch);
                 NotifyOfPropertyChange(() => SearchText);
             }
         }
@@ -56,11 +55,6 @@ namespace EPT.Modules.SearchModule.ViewModels
                     DisplayName = string.Format("{0} ({1})", SearchText, Items.Count)
                 };
             this.ActiveItem = searchResult;
-        }
-
-        public bool CanSearch
-        {
-            get { return !string.IsNullOrEmpty(SearchText); }
         }
     }
 }

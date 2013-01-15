@@ -1,107 +1,98 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using Caliburn.Micro;
-using System.Linq;
-using EPT.GUI.Helpers;
+﻿using Caliburn.Micro;
 using EPT.Infrastructure.API;
+using EPT.Infrastructure.Messages;
 using MahApps.Metro;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 
 namespace EPT.Shell.ViewModels
 {
-    public class ShellViewModel : Conductor<IShellModule>.Collection.OneActive, IShell
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IShell, IHandle<ShowScreenMessage>
     {
-        private readonly SettingsViewModel _settingsView;
-        private readonly AboutViewModel _aboutView;
+        readonly ShellModuleViewModel _firstScreen;
+        private readonly IEnumerable<IWindowCommand> _windowCommands;
+        private readonly IEventAggregator _eventAggregator;
+        private string _status;
+        private readonly IDialogManager _dialogManager;
+        private IFlyout _flyouts;
 
-        public ShellViewModel(AboutViewModel aboutView, SettingsViewModel settingsView)
+
+        public ShellViewModel(ShellModuleViewModel firstScreen,
+                IEnumerable<IWindowCommand> windowCommands,
+                IEventAggregator eventAggregator,
+                IDialogManager dialogManager)
         {
-            _aboutView = aboutView;
-            _settingsView = settingsView;
-
-            DisplayName = "Enterprise Project Template";
-
-            var shellModules = DesignerProperties.GetIsInDesignMode(new DependencyObject()) ? GetDesignTimeModules() : IoC.GetAllInstances(typeof(IShellModule)).Cast<IShellModule>().Where(m => m.ActiveMenuEntry).OrderBy(x => x.OrderPriority).ToList();
-
+            _firstScreen = firstScreen;
+            _windowCommands = windowCommands;
+            _eventAggregator = eventAggregator;
+            _dialogManager = dialogManager;
+            DisplayName = "Shell View - Enterprise Project Template";
             ThemeManager.ChangeTheme(Application.Current, ThemeManager.DefaultAccents.FirstOrDefault(a => a.Name == "Blue"), Theme.Light);
+            eventAggregator.Subscribe(this);
 
-            ScreenExtensions.TryActivate(this);
-
-            Items.AddRange(shellModules);
-
-            if (Items.Any())
-                ActiveItem = Items.First();
-            
+            //ToDo, Antipattern, find a better solution
+            //_backgroundBusyWatcher = (IBusyWatcher)IoC.GetInstance(typeof(IBusyWatcher), "Background");
         }
 
-        public void LoadSettings()
+        public IBusyWatcher BackgroundBusyWatcher { get; private set; }
+
+        public IEnumerable<IWindowCommand> WindowCommands
         {
-            ActiveItem = _settingsView;
+            get { return _windowCommands; }
         }
 
-        public void ShowAbout()
+        public void Back()
         {
-            ActiveItem = _aboutView;
+            ActivateItem(_firstScreen);
+        }
+
+        protected override void OnInitialize()
+        {
+            ActivateItem(_firstScreen);
+            base.OnInitialize();
+        }
+
+        public void Handle(ShowScreenMessage message)
+        {
+            ActivateItem(message.Screen ?? _firstScreen);
+        }
+
+        public void ExecuteWindowCommand(object dataContext)
+        {
+            var command = dataContext as IWindowCommand;
+            if (command != null) command.CommandAction.Invoke();
+        }
+
+
+
+        public string StatusMessage
+        {
+            get { return _status; }
+            set
+            {
+                if (value == _status) return;
+                _status = value;
+                NotifyOfPropertyChange(() => StatusMessage);
+            }
         }
 
         public void ShowFlyouts()
         {
-            var metro = (MahApps.Metro.Controls.MetroWindow) Application.Current.MainWindow;
+            var metro = (MahApps.Metro.Controls.MetroWindow)Application.Current.MainWindow;
 
             metro.Flyouts[0].IsOpen = !metro.Flyouts[0].IsOpen;
             metro.Flyouts[1].IsOpen = !metro.Flyouts[1].IsOpen;
         }
 
-        private static IList<IShellModule> GetDesignTimeModules()
+        public IDialogManager Dialogs
         {
-            var modules = new List<IShellModule>
-                {
-                    new DesignTimeModule(
-                        ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.box.png"), 48), 1,
-                        "Demo Module 1"),
-                   new DesignTimeModule(
-                        ImageHelper.CreateImage(UriHelper.GetPackUri(@"\Images\Light\appbar.alien.png"), 48), 1,
-                        "Demo Module 2"),
-                };
-            return modules;
-        }
-    }
-
-    internal class DesignTimeModule : IShellModule
-    {
-        private readonly Image _createImage;
-        private readonly int _i;
-        private readonly string _demoModule;
-        private bool _activeMenuEntry;
-
-
-        public DesignTimeModule(Image createImage, int i, string demoModule)
-        {
-            _createImage = createImage;
-            _i = i;
-            _demoModule = demoModule;
+            get { return _dialogManager; }
         }
 
-        public Image Icon
+        public IFlyout Flyouts
         {
-            get { return _createImage; }
-        }
-
-        public int OrderPriority
-        {
-            get { return _i; }
-        }
-
-        public bool ActiveMenuEntry
-        {
-            get { return _activeMenuEntry; }
-        }
-
-        public string DisplayName
-        {
-            get { return _demoModule; }
+            get { return _flyouts; }
         }
     }
 }

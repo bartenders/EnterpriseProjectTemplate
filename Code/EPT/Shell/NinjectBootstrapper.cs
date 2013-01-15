@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace EPT.Shell
 {
@@ -49,7 +50,7 @@ namespace EPT.Shell
             // Import Assemblys into Caliburn for inspection
             AssemblySource.Instance.AddRange(validModuleAssembiles);
 
-            SetupInputKeyBindingConvention();
+            SetupConvention();
 
             base.Configure();
         }
@@ -57,7 +58,7 @@ namespace EPT.Shell
         /// <summary>
         /// Setup the ConventionManager for input keybindings.
         /// </summary>
-        private static void SetupInputKeyBindingConvention()
+        private static void SetupConvention()
         {
             var trigger = Parser.CreateTrigger;
 
@@ -82,6 +83,9 @@ namespace EPT.Shell
 
                 return trigger(target, triggerText);
             };
+
+            ConventionManager.AddElementConvention<BusyIndicator>(BusyIndicator.IsBusyProperty, "IsBusy", "Loaded");
+
         }
 
         /// <summary>
@@ -112,6 +116,7 @@ namespace EPT.Shell
 
         protected override object GetInstance(Type service, string key)
         {
+            //return string.IsNullOrEmpty(key) ? _kernel.Get(service, key) : _kernel.Get(service);
             return _kernel.Get(service);
         }
 

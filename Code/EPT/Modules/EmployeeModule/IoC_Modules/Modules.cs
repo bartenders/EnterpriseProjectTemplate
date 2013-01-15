@@ -9,8 +9,7 @@ namespace EPT.Modules.MasterDataModule.IoC_Modules
         public override void Load()
         {
             Bind<Repository>().ToSelf().InSingletonScope();
-            Bind<IShellModule>().To<EmployeeViewModel>().InSingletonScope();
-            Bind<IShellModule>().To<CustomerViewModel>().InSingletonScope();
+            Bind<IShellModule>().To<CustomersViewModel>().InSingletonScope();
             Bind<OrdersViewModel>().ToSelf().InSingletonScope();
         }
     }

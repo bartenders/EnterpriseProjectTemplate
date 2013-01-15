@@ -7,4 +7,5 @@
     <Local:OppositeBooleanToVisibilityConverter x:Key="OppositeBooleanToVisibilityConverter" />
     <Local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <Local:SourceToTabItemsConverter x:Key="SourceToTabItemsConverter" />
+    <Local:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
 </ResourceDictionary>

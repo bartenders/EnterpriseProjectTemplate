@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.Modules.SearchModule", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPT.GUI", "..\Code\EPT\GUI\EPT.GUI.csproj", "{8AB6482C-7064-4A29-B5F5-26D99FA904DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.WPF45", "..\3rdPartyCode\CaliburnMicro1.4\Caliburn.Micro.WPF45\Caliburn.Micro.WPF45.csproj", "{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,16 @@ Global
 		{8AB6482C-7064-4A29-B5F5-26D99FA904DE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8AB6482C-7064-4A29-B5F5-26D99FA904DE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8AB6482C-7064-4A29-B5F5-26D99FA904DE}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EF2C0C7D-3FFE-4884-9AAC-7622FEE66809}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

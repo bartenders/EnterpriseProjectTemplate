@@ -820,8 +820,8 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="NorthwindModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="NorthwindEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+      <Schema Namespace="NorthwindModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:ib12="http://www.ideablade.com/edm/2012">
+        <EntityContainer Name="NorthwindEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" ib12:GenerateDeveloperClasses="true">
           <EntitySet Name="Categories" EntityType="NorthwindModel.Category" />
           <EntitySet Name="CustomerDemographics" EntityType="NorthwindModel.CustomerDemographic" />
           <EntitySet Name="Customers" EntityType="NorthwindModel.Customer" />
@@ -915,7 +915,7 @@
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="CustomerID" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="CustomerID" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" ib12:DisplayName="Customer ID" />
           <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
           <Property Name="ContactName" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
           <Property Name="ContactTitle" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
@@ -974,8 +974,8 @@
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="CustomerID" Type="String" MaxLength="5" Unicode="true" FixedLength="true" />
-          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="CustomerID" Type="String" MaxLength="5" Unicode="true" FixedLength="true" ib12:DisplayName="Customer ID" />
+          <Property Name="EmployeeID" Type="Int32" ib12:DisplayName="Employee ID" />
           <Property Name="OrderDate" Type="DateTime" />
           <Property Name="RequiredDate" Type="DateTime" />
           <Property Name="ShippedDate" Type="DateTime" />

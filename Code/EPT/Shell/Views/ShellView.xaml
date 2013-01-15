@@ -2,6 +2,8 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:Properties="clr-namespace:EPT.Shell.Properties"
+                      xmlns:Toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"
                       xmlns:VM="clr-namespace:EPT.Shell.ViewModels"
                       xmlns:cal="http://www.caliburnproject.org"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,76 +17,77 @@
                       d:DesignHeight="267"
                       d:DesignWidth="559"
                       mc:Ignorable="d">
+    <Controls:MetroWindow.LayoutTransform>
+        <TransformGroup>
+            <ScaleTransform ScaleX="{Binding GuiZoom, Source={x:Static Properties:Settings.Default}}" ScaleY="{Binding GuiZoom, Source={x:Static Properties:Settings.Default}}" />
+        </TransformGroup>
+    </Controls:MetroWindow.LayoutTransform>
     <Controls:MetroWindow.Resources>
-        <DataTemplate x:Key="IShellModuleDataTemplate">
+        <DataTemplate x:Key="IWindowCommands">
             <Grid d:DesignHeight="39" d:DesignWidth="197">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <ContentControl Content="{Binding Icon}" />
-                <TextBlock Grid.Column="1"
-                           Margin="5,0,10,0"
-                           VerticalAlignment="Center"
-                           Text="{Binding DisplayName}"
-                           TextWrapping="Wrap"
-                           d:LayoutOverrides="Width" />
+                <Button Content="{Binding CommandDisplayName}" cal:Message.Attach="ExecuteWindowCommand($dataContext)" />
+                <!--
+                    cal:Message.Attach="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=CommandAction}"
+                    cal:Action.TargetWithoutContext="{Binding RelativeSource={RelativeSource FindAncestor,
+                    AncestorType={x:Type ListBox}}}"
+                -->
             </Grid>
         </DataTemplate>
     </Controls:MetroWindow.Resources>
-
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
-            <Button Content="Settings" cal:Message.Attach="LoadSettings" />
-            <Button Content="About" cal:Message.Attach="ShowAbout" />
+            <ListBox ItemTemplate="{DynamicResource IWindowCommands}" ItemsSource="{Binding WindowCommands}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
         </Controls:WindowCommands>
     </Controls:MetroWindow.WindowCommands>
-
     <Controls:MetroWindow.Flyouts>
         <Controls:Flyout Header="hiiiii">
             <Button Content="hi" />
         </Controls:Flyout>
+
         <Controls:Flyout Background="#9f000000"
                          Header="Bakery"
                          Position="Right">
             <StackPanel>
-                <Controls:Tile Title="My _Cupcakes" Count="23">
-                </Controls:Tile>
+                <Controls:Tile Title="My _Cupcakes" Count="23" />
             </StackPanel>
         </Controls:Flyout>
     </Controls:MetroWindow.Flyouts>
-
-    <i:Interaction.Triggers>
+    <!--
+        <i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewMouseRightButtonUp">
-            <cal:ActionMessage MethodName="ShowFlyouts" />
+        <cal:ActionMessage MethodName="ShowFlyouts" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>
-
-    <Controls:MetroContentControl>
+        </i:Interaction.Triggers>
+    -->
+    <Toolkit:BusyIndicator>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="50" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Controls:ProgressIndicator Grid.ColumnSpan="3"
-                                        Height="7"
+            <Controls:ProgressIndicator Height="7"
+                                        IsEnabled="{Binding BackgroundBusyWatcher.IsBusy,
+                                                            Mode=OneWay}"
                                         ProgressColour="{StaticResource AccentColorBrush}" />
 
-            <ListBox Grid.Row="1"
-                     Margin="0,0,12,0"
-                     ItemTemplate="{DynamicResource IShellModuleDataTemplate}"
-                     ItemsSource="{Binding Items}"
-                     SelectedItem="{Binding ActiveItem}" />
-            <GridSplitter Grid.RowSpan="2" HorizontalAlignment="Left" />
-            <ContentControl Grid.Row="1"
-                            Grid.Column="2"
-                            cal:Bind.AtDesignTime="True"
-                            cal:View.Model="{Binding ActiveItem}" />
+            <Controls:TransitioningContentControl x:Name="ActiveItem"
+                                                  Grid.Row="1"
+                                                  Transition="LeftReplaceTransition" />
+            <Controls:MetroProgressBar Grid.Row="2" />
+            <StatusBar Grid.Row="3" Height="25">
+                <StatusBarItem x:Name="StatusMessage" />
+            </StatusBar>
+
         </Grid>
-    </Controls:MetroContentControl>
+
+    </Toolkit:BusyIndicator>
+
 </Controls:MetroWindow>

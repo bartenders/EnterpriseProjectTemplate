@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.EntityClient;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EPT.DAL.Northwind
 {
@@ -27,11 +29,23 @@ namespace EPT.DAL.Northwind
         /// <returns></returns>
         public IEnumerable<Customer> GetAllCustomers()
         {
+            Thread.Sleep(500);
             using (var context = new NorthwindEntities(GetEntityConnection()))
             {
                 return (from item in context.Customers
                         select item).ToList();
             }
+        }
+
+        public async Task<List<Customer>> GetAllCustomersAsync()
+        {
+            using (var context = new NorthwindEntities(GetEntityConnection()))
+            {
+                Thread.Sleep(500);
+                return await Task.Factory.StartNew(() =>
+                                                   (from item in context.Customers
+                                                    select item).ToList());
+            };
         }
 
         /// <summary>
@@ -41,13 +55,16 @@ namespace EPT.DAL.Northwind
         /// <returns></returns>
         public IEnumerable<Order> GetOrdersFromCustomer(string customerId)
         {
+            var orders = new List<Order>();
             using (var context = new NorthwindEntities(GetEntityConnection()))
             {
-                var orders = (from item in context.Orders
-                              where item.CustomerID.Equals(customerId)
-                              select item).ToList();
-                return orders;
+                context.ContextOptions.LazyLoadingEnabled = false;
+
+                orders = (from item in context.Orders
+                          where item.CustomerID.Equals(customerId)
+                          select item).ToList();
             }
+            return orders;
         }
 
         private static EntityConnection GetEntityConnection()

@@ -8,5 +8,11 @@
     <Setting Name="ModuleBaseDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">..\Modules\</Value>
     </Setting>
+    <Setting Name="GuiZoom" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DefaultSettingsMargin" Type="System.Windows.Thickness" Scope="User">
+      <Value Profile="(Default)">0,10,0,0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

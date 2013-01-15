@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="EPT.Shell.Views.ShellModuleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:VM="clr-namespace:EPT.Shell.ViewModels"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             cal:Bind.AtDesignTime="True"
+             d:DataContext="{d:DesignInstance {x:Type VM:ShellModuleViewModel},
+                                              IsDesignTimeCreatable=False}"
+             d:DesignHeight="267"
+             d:DesignWidth="559"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="IShellModuleDataTemplate">
+            <Grid d:DesignHeight="39" d:DesignWidth="197">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl Content="{Binding Icon}" />
+                <TextBlock Grid.Column="1"
+                           Margin="5,0,10,0"
+                           VerticalAlignment="Center"
+                           Text="{Binding DisplayName}"
+                           TextWrapping="Wrap"
+                           d:LayoutOverrides="Width" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Controls:MetroContentControl>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="50" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ListBox Grid.Row="1"
+                         Margin="0,0,12,0"
+                         ItemTemplate="{DynamicResource IShellModuleDataTemplate}"
+                         ItemsSource="{Binding Items}"
+                         SelectedItem="{Binding ActiveItem}" />
+                <GridSplitter Grid.RowSpan="2" HorizontalAlignment="Left" />
+                <ContentControl Grid.Row="1"
+                                Grid.Column="2"
+                                cal:Bind.AtDesignTime="True"
+                                cal:View.Model="{Binding ActiveItem}" />
+            </Grid>
+        </Controls:MetroContentControl>
+    </Grid>
+</UserControl>

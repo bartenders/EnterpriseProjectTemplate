@@ -22,27 +22,27 @@ namespace EPT.GUI.Controls
         public static DependencyProperty LabelTextProperty =
             DependencyProperty.Register(
                 "LabelText",
-                typeof (string),
-                typeof (SearchTextBox));
+                typeof(string),
+                typeof(SearchTextBox));
 
         public static DependencyProperty LabelTextColorProperty =
             DependencyProperty.Register(
                 "LabelTextColor",
-                typeof (Brush),
-                typeof (SearchTextBox));
+                typeof(Brush),
+                typeof(SearchTextBox));
 
         public static DependencyProperty SearchModeProperty =
             DependencyProperty.Register(
                 "SearchMode",
-                typeof (SearchMode),
-                typeof (SearchTextBox),
+                typeof(SearchMode),
+                typeof(SearchTextBox),
                 new PropertyMetadata(SearchMode.Instant));
 
         private static readonly DependencyPropertyKey HasTextPropertyKey =
             DependencyProperty.RegisterReadOnly(
                 "HasText",
-                typeof (bool),
-                typeof (SearchTextBox),
+                typeof(bool),
+                typeof(SearchTextBox),
                 new PropertyMetadata());
 
         public static DependencyProperty HasTextProperty = HasTextPropertyKey.DependencyProperty;
@@ -50,8 +50,8 @@ namespace EPT.GUI.Controls
         private static readonly DependencyPropertyKey IsMouseLeftButtonDownPropertyKey =
             DependencyProperty.RegisterReadOnly(
                 "IsMouseLeftButtonDown",
-                typeof (bool),
-                typeof (SearchTextBox),
+                typeof(bool),
+                typeof(SearchTextBox),
                 new PropertyMetadata());
 
         public static DependencyProperty IsMouseLeftButtonDownProperty =
@@ -60,8 +60,8 @@ namespace EPT.GUI.Controls
         public static DependencyProperty SearchEventTimeDelayProperty =
             DependencyProperty.Register(
                 "SearchEventTimeDelay",
-                typeof (Duration),
-                typeof (SearchTextBox),
+                typeof(Duration),
+                typeof(SearchTextBox),
                 new FrameworkPropertyMetadata(
                     new Duration(new TimeSpan(0, 0, 0, 0, 500)),
                     OnSearchEventTimeDelayChanged));
@@ -70,62 +70,62 @@ namespace EPT.GUI.Controls
             EventManager.RegisterRoutedEvent(
                 "Search",
                 RoutingStrategy.Bubble,
-                typeof (RoutedEventHandler),
-                typeof (SearchTextBox));
+                typeof(RoutedEventHandler),
+                typeof(SearchTextBox));
 
         private readonly DispatcherTimer _searchEventDelayTimer;
 
         static SearchTextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof (SearchTextBox),
-                new FrameworkPropertyMetadata(typeof (SearchTextBox)));
+                typeof(SearchTextBox),
+                new FrameworkPropertyMetadata(typeof(SearchTextBox)));
         }
 
         public SearchTextBox()
         {
-            _searchEventDelayTimer = new DispatcherTimer {Interval = SearchEventTimeDelay.TimeSpan};
+            _searchEventDelayTimer = new DispatcherTimer { Interval = SearchEventTimeDelay.TimeSpan };
             _searchEventDelayTimer.Tick += OnSeachEventDelayTimerTick;
         }
 
         [Category("SearchOptions")]
         public string LabelText
         {
-            get { return (string) GetValue(LabelTextProperty); }
+            get { return (string)GetValue(LabelTextProperty); }
             set { SetValue(LabelTextProperty, value); }
         }
 
         [Category("SearchOptions")]
         public Brush LabelTextColor
         {
-            get { return (Brush) GetValue(LabelTextColorProperty); }
+            get { return (Brush)GetValue(LabelTextColorProperty); }
             set { SetValue(LabelTextColorProperty, value); }
         }
 
         [Category("SearchOptions")]
         public SearchMode SearchMode
         {
-            get { return (SearchMode) GetValue(SearchModeProperty); }
+            get { return (SearchMode)GetValue(SearchModeProperty); }
             set { SetValue(SearchModeProperty, value); }
         }
 
         [Category("SearchOptions")]
         public bool HasText
         {
-            get { return (bool) GetValue(HasTextProperty); }
+            get { return (bool)GetValue(HasTextProperty); }
             private set { SetValue(HasTextPropertyKey, value); }
         }
 
         [Category("SearchOptions")]
         public Duration SearchEventTimeDelay
         {
-            get { return (Duration) GetValue(SearchEventTimeDelayProperty); }
+            get { return (Duration)GetValue(SearchEventTimeDelayProperty); }
             set { SetValue(SearchEventTimeDelayProperty, value); }
         }
 
         public bool IsMouseLeftButtonDown
         {
-            get { return (bool) GetValue(IsMouseLeftButtonDownProperty); }
+            get { return (bool)GetValue(IsMouseLeftButtonDownProperty); }
             private set { SetValue(IsMouseLeftButtonDownPropertyKey, value); }
         }
 
@@ -140,7 +140,7 @@ namespace EPT.GUI.Controls
         {
             var stb = o as SearchTextBox;
             if (stb == null) return;
-            stb._searchEventDelayTimer.Interval = ((Duration) e.NewValue).TimeSpan;
+            stb._searchEventDelayTimer.Interval = ((Duration)e.NewValue).TimeSpan;
             stb._searchEventDelayTimer.Stop();
         }
 

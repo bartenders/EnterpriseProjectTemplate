@@ -43,5 +43,29 @@ namespace EPT.Shell.Properties {
                 this["ModuleBaseDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double GuiZoom {
+            get {
+                return ((double)(this["GuiZoom"]));
+            }
+            set {
+                this["GuiZoom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,10,0,0")]
+        public global::System.Windows.Thickness DefaultSettingsMargin {
+            get {
+                return ((global::System.Windows.Thickness)(this["DefaultSettingsMargin"]));
+            }
+            set {
+                this["DefaultSettingsMargin"] = value;
+            }
+        }
     }
 }
