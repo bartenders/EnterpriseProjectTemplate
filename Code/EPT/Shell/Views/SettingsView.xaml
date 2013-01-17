@@ -46,9 +46,9 @@
                 <Label HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Content="GUI Zoom" />
-                <xctk:DecimalUpDown Increment="0.2"
-                                    Maximum="3"
-                                    Minimum="0.4"
+                <xctk:DecimalUpDown Increment="0.1"
+                                    Maximum="2"
+                                    Minimum="0.6"
                                     Value="{Binding Path=GuiZoom,
                                                     Source={x:Static properties:Settings.Default},
                                                     Mode=TwoWay,

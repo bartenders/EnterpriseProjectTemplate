@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>IdeaBlade.DevForce.Core</id>
+    <version>7.0.3</version>
+    <title>DevForce 2012 Client</title>
+    <authors>IdeaBlade</authors>
+    <owners>IdeaBlade</owners>
+    <licenseUrl>http://www.ideablade.com/PDF/ideablade-product-license-terms-and-conditions.pdf</licenseUrl>
+    <projectUrl>http://www.ideablade.com/</projectUrl>
+    <iconUrl>http://www.ideablade.com/images/icons/devforce-icon-32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>DevForce takes care of your application's infrastructure-the gap between your data-layer and client-layer where the difficult job of turning raw data into business objects and moving them to and from the client's screen takes place. DevForce fills this gap so you don't have to. Instead of building, maintaining, revising, and defending your application's infrastructure; you can focus on what you do best-application development.
+
+DevForce implements end-to-end n-tier architecture by exposing a generic web service on the server that takes a LINQ expression and returns business objects to the client over the internet.
+
+Write LINQ queries on the client and get back business objects with your own custom business logic-just like working with a 2-tier or client-server application.
+
+DevForce handles all the n-tier WCF communications, serialization, and marshaling for you.
+
+Learn more at www.ideablade.com.</description>
+    <summary>DevForce is a framework for building and operating data-rich business applications for multiple client technologies.</summary>
+    <releaseNotes>http://drc.ideablade.com/DevForce-2012/bin/view/Documentation/release-notes</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Asynchronous, business objects, code-first, enterprise, entity framework, interception, linq, lob, model, mvvm, odata, persistence, poco, Silverlight, validation,, winforms, winrt, wpf, xaml</tags>
+    <dependencies>
+      <group targetFramework="Silverlight5.0">
+        <dependency id="Microsoft.CompilerServices.AsyncTargetingPack" />
+      </group>
+      <group targetFramework="Windows0.0">
+        <dependency id="Microsoft.Composition" version="[1.0.16]" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.ComponentModel.Composition" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="Silverlight5.0" />
+      <frameworkAssembly assemblyName="System.ComponentModel.Composition" targetFramework="Silverlight5.0" />
+      <frameworkAssembly assemblyName="System.ComponentModel.Composition.Initialization" targetFramework="Silverlight5.0" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="Silverlight5.0" />
+    </frameworkAssemblies>
+    <references>
+      <reference file="IdeaBlade.Core.dll" />
+      <reference file="IdeaBlade.EntityModel.dll" />
+      <reference file="IdeaBlade.Linq.dll" />
+      <reference file="IdeaBlade.Validation.dll" />
+      <reference file="IdeaBlade.Core.SL.dll" />
+      <reference file="IdeaBlade.EntityModel.SL.dll" />
+      <reference file="IdeaBlade.Linq.SL.dll" />
+      <reference file="IdeaBlade.Validation.SL.dll" />
+      <reference file="IdeaBlade.Core.WinRT.dll" />
+      <reference file="IdeaBlade.EntityModel.WinRT.dll" />
+      <reference file="IdeaBlade.Linq.WinRT.dll" />
+      <reference file="IdeaBlade.Validation.WinRT.dll" />
+    </references>
+  </metadata>
+</package>

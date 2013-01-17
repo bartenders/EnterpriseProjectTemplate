@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace EPT.Modules.SearchModule.ViewModels
 {
-    public sealed class SearchViewModel : Conductor<IScreen>.Collection.OneActive, IShellModule
+    public sealed class SearchViewModel : Conductor<TabItemViewModel>.Collection.OneActive, IShellModule
     {
         private string _searchText;
         private ILog _log;

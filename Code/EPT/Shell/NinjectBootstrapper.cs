@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+
 using Caliburn.Micro.Logging.NLog;
 using EPT.Infrastructure.API;
 using EPT.Infrastructure.Input;
@@ -34,6 +35,7 @@ namespace EPT.Shell
         {
             _PublicKey = Assembly.GetExecutingAssembly().GetName().GetPublicKey();
 
+            // Ninject IoC module Configuration
             var moduleBaseDirectory = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Settings.Default.ModuleBaseDir));
             var modules = moduleBaseDirectory.EnumerateFiles(Settings.Default.ModuleSearchPattern, SearchOption.AllDirectories);
             var moduleFileInfos = modules as List<FileInfo> ?? modules.ToList();
@@ -41,7 +43,6 @@ namespace EPT.Shell
                 throw new ResourceReferenceKeyNotFoundException(string.Format("Unable to find Modules at {0} with search pattern {1}", Settings.Default.ModuleBaseDir, Settings.Default.ModuleSearchPattern), Settings.Default.ModuleBaseDir);
 
             var moduleAssemblies = moduleFileInfos.Select(file => Assembly.LoadFile(file.FullName)).Concat(new[] { this.GetType().Assembly }).ToArray();
-
             var validModuleAssembiles = moduleAssemblies.Where(CheckAssemblySignature).ToList();
 
             // Load Modules via Ninject Kernel
@@ -51,7 +52,6 @@ namespace EPT.Shell
             AssemblySource.Instance.AddRange(validModuleAssembiles);
 
             SetupConvention();
-
             base.Configure();
         }
 

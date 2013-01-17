@@ -14,19 +14,20 @@ namespace EPT.Shell.ViewModels
         private readonly IEnumerable<IWindowCommand> _windowCommands;
         private readonly IEventAggregator _eventAggregator;
         private string _status;
-        private readonly IDialogManager _dialogManager;
+        
+   
         private IFlyout _flyouts;
 
 
         public ShellViewModel(ShellModuleViewModel firstScreen,
                 IEnumerable<IWindowCommand> windowCommands,
-                IEventAggregator eventAggregator,
-                IDialogManager dialogManager)
+                IEventAggregator eventAggregator
+                )
         {
             _firstScreen = firstScreen;
             _windowCommands = windowCommands;
             _eventAggregator = eventAggregator;
-            _dialogManager = dialogManager;
+   
             DisplayName = "Shell View - Enterprise Project Template";
             ThemeManager.ChangeTheme(Application.Current, ThemeManager.DefaultAccents.FirstOrDefault(a => a.Name == "Blue"), Theme.Light);
             eventAggregator.Subscribe(this);
@@ -85,14 +86,15 @@ namespace EPT.Shell.ViewModels
             metro.Flyouts[1].IsOpen = !metro.Flyouts[1].IsOpen;
         }
 
-        public IDialogManager Dialogs
-        {
-            get { return _dialogManager; }
-        }
 
         public IFlyout Flyouts
         {
             get { return _flyouts; }
+        }
+
+        public void Log(string message)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

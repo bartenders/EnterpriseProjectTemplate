@@ -1,5 +1,6 @@
 ﻿using EPT.Infrastructure.Data;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.EntityClient;
 using System.Linq;
 using System.Threading;
@@ -72,10 +73,9 @@ namespace EPT.DAL.Northwind
             return Connection.CreateConnectionString(typeof(Repository).Assembly, "Northwind", GetConnectionString());
         }
 
-        //TODO: Replace with configuration logic
         private static string GetConnectionString()
         {
-            return "Data Source=.;Initial Catalog=Northwind;Integrated Security=SSPI;MultipleActiveResultSets=True;";
+            return ConfigurationManager.ConnectionStrings["NorthwindEntities"].ConnectionString;
         }
     }
 }

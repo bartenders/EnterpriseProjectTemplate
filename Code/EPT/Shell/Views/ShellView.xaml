@@ -10,30 +10,40 @@
                       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       Title="{Binding DisplayName}"
-                      Icon="\Images\appbar.transit.congestion.png"
-                      cal:Bind.AtDesignTime="True"
-                      d:DataContext="{d:DesignInstance {x:Type VM:ShellViewModel},
-                                                       IsDesignTimeCreatable=True}"
+                      Icon="..\Images\appbar.transit.congestion.png"
                       d:DesignHeight="267"
                       d:DesignWidth="559"
                       mc:Ignorable="d">
-    <Controls:MetroWindow.LayoutTransform>
-        <TransformGroup>
-            <ScaleTransform ScaleX="{Binding GuiZoom, Source={x:Static Properties:Settings.Default}}" ScaleY="{Binding GuiZoom, Source={x:Static Properties:Settings.Default}}" />
-        </TransformGroup>
-    </Controls:MetroWindow.LayoutTransform>
+
+
     <Controls:MetroWindow.Resources>
-        <DataTemplate x:Key="IWindowCommands">
-            <Grid d:DesignHeight="39" d:DesignWidth="197">
-                <Button Content="{Binding CommandDisplayName}" cal:Message.Attach="ExecuteWindowCommand($dataContext)" />
-                <!--
-                    cal:Message.Attach="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=CommandAction}"
-                    cal:Action.TargetWithoutContext="{Binding RelativeSource={RelativeSource FindAncestor,
-                    AncestorType={x:Type ListBox}}}"
-                -->
-            </Grid>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="IWindowCommands">
+                        <Grid d:DesignHeight="39" d:DesignWidth="197">
+                            <Button Content="{Binding CommandDisplayName}" cal:Message.Attach="ExecuteWindowCommand($dataContext)" />
+                            <!--
+                                cal:Message.Attach="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=CommandAction}"
+                                cal:Action.TargetWithoutContext="{Binding RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type ListBox}}}"
+                            -->
+                        </Grid>
+                    </DataTemplate>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Controls:MetroWindow.Resources>
+
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <ListBox ItemTemplate="{DynamicResource IWindowCommands}" ItemsSource="{Binding WindowCommands}">
@@ -67,6 +77,11 @@
     -->
     <Toolkit:BusyIndicator>
         <Grid>
+            <Grid.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="{Binding GuiZoom, Source={x:Static Properties:Settings.Default}}" ScaleY="{Binding GuiZoom, Source={x:Static Properties:Settings.Default}}" />
+                </TransformGroup>
+            </Grid.LayoutTransform>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
@@ -74,15 +89,20 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Controls:ProgressIndicator Height="7"
-                                        IsEnabled="{Binding BackgroundBusyWatcher.IsBusy,
-                                                            Mode=OneWay}"
-                                        ProgressColour="{StaticResource AccentColorBrush}" />
+                                        IsEnabled="False"
+                                        ProgressColour="{StaticResource AccentColorBrush}"
+                                        Visibility="Collapsed" />
 
             <Controls:TransitioningContentControl x:Name="ActiveItem"
                                                   Grid.Row="1"
                                                   Transition="LeftReplaceTransition" />
+
             <Controls:MetroProgressBar Grid.Row="2" />
-            <StatusBar Grid.Row="3" Height="25">
+
+            <StatusBar Grid.Row="3"
+                       Height="25"
+                       Background="{DynamicResource HighlightLightBrush}">
+
                 <StatusBarItem x:Name="StatusMessage" />
             </StatusBar>
 

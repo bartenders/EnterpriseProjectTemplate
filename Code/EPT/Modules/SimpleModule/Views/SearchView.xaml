@@ -21,25 +21,178 @@
                 <ResourceDictionary Source="pack://application:,,,/EPT.GUI;component/Images/Images.generated.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/EPT.GUI;component/Converters/Converters.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/EPT.GUI;component/Themes/CoreControls/Generic.xaml" />
-                <!--
-                    <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding DisplayName}" />
-                    <Button Content="X" cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
-                    </StackPanel>
-                    </DataTemplate>
-                -->
+                <ResourceDictionary>
+                    <!--
+                        <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DisplayName}" />
+                        <Button Content="X" cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
+                        </StackPanel>
+                        </DataTemplate>
+                    -->
+
+                    <!--  Background  -->
+                    <SolidColorBrush x:Key="Background" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="Foreground" Color="#FF252525" />
+                    <!--  General  -->
+
+                    <SolidColorBrush x:Key="BorderBrushSelected" Color="#007ACC" />
+                    <SolidColorBrush x:Key="BackgroundSelected" Color="#1C97EA" />
+
+                    <!--  Close Button  -->
+                    <SolidColorBrush x:Key="CloseButtonBackgroundHighlighted" Color="#39ADFB" />
+                    <SolidColorBrush x:Key="CloseButtonBackgroundPressed" Color="#084E7D" />
+                    <SolidColorBrush x:Key="CloseButtonStroke" Color="#AAFFFFFF" />
+                    <SolidColorBrush x:Key="CloseButtonStrokeHighlighted" Color="#FFFFFF" />
+
+
+
+                    <Style x:Key="StandardTabControl" TargetType="{x:Type TabControl}">
+                        <Style.Resources>
+                            <Style TargetType="{x:Type TabItem}">
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TabItem}">
+                                            <Grid Height="23"
+                                                  Background="{TemplateBinding Background}"
+                                                  SnapsToDevicePixels="true">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="25" />
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Margin="10,0,10,0"
+                                                                  HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"
+                                                                  ContentSource="Header">
+                                                    <ContentPresenter.Resources>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+                                                        </Style>
+                                                    </ContentPresenter.Resources>
+                                                </ContentPresenter>
+
+                                                <!--
+                                                    ContentSource="{Binding DisplayName,
+                                                    RelativeSource={RelativeSource FindAncestor,
+                                                    AncestorType={x:Type TabItem}}}"
+                                                    cal:Message.Attach="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}}, Path=CommandAction}"
+                                                    cal:Action.TargetWithoutContext="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                    AncestorType={x:Type ListBox}}}"
+                                                -->
+                                                <Button Grid.Column="1"
+                                                        Width="15"
+                                                        Height="15"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        cal:Message.Attach="DeactivateItem($dataContext, 'true')">
+                                                    <Button.Style>
+                                                        <Style TargetType="{x:Type Button}">
+                                                            <Setter Property="Background" Value="Transparent" />
+                                                            <Setter Property="Cursor" Value="Hand" />
+                                                            <Setter Property="Focusable" Value="False" />
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                                        <Grid Background="{TemplateBinding Background}">
+                                                                            <Path x:Name="ButtonPath"
+                                                                                  Margin="2"
+                                                                                  HorizontalAlignment="Center"
+                                                                                  VerticalAlignment="Center"
+                                                                                  Data="M0,0 L1,1 M0,1 L1,0"
+                                                                                  Stretch="Uniform"
+                                                                                  Stroke="{StaticResource CloseButtonStroke}"
+                                                                                  StrokeEndLineCap="Flat"
+                                                                                  StrokeStartLineCap="Flat"
+                                                                                  StrokeThickness="2" />
+                                                                        </Grid>
+                                                                        <ControlTemplate.Triggers>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                                                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" Value="false" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <MultiDataTrigger.Setters>
+                                                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                                                </MultiDataTrigger.Setters>
+                                                                            </MultiDataTrigger>
+                                                                            <Trigger Property="IsEnabled" Value="False">
+                                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                                            </Trigger>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Background" Value="{StaticResource CloseButtonBackgroundHighlighted}" />
+                                                                                <Setter TargetName="ButtonPath" Property="Stroke" Value="{StaticResource CloseButtonStrokeHighlighted}" />
+                                                                            </Trigger>
+                                                                            <Trigger Property="IsPressed" Value="true">
+                                                                                <Setter Property="Background" Value="{StaticResource CloseButtonBackgroundPressed}" />
+                                                                                <Setter TargetName="ButtonPath" Property="Stroke" Value="{StaticResource CloseButtonStroke}" />
+                                                                                <Setter TargetName="ButtonPath" Property="Margin" Value="2.5,2.5,1.5,1.5" />
+                                                                            </Trigger>
+                                                                        </ControlTemplate.Triggers>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="false">
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Background" Value="{StaticResource BorderBrushSelected}" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="true">
+                                                    <Setter Property="Background" Value="{StaticResource BackgroundSelected}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Style.Resources>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TabControl}">
+                                    <Grid KeyboardNavigation.TabNavigation="Local">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Border Background="Transparent"
+                                                BorderBrush="{StaticResource BackgroundSelected}"
+                                                BorderThickness="0,0,0,3">
+                                            <TabPanel Name="HeaderPanel"
+                                                      Margin="0,0,4,-1"
+                                                      Panel.ZIndex="1"
+                                                      IsItemsHost="True"
+                                                      KeyboardNavigation.TabIndex="1" />
+                                        </Border>
+                                        <Border Grid.Row="1" Background="{StaticResource Background}" />
+                                        <ContentPresenter Name="PART_SelectedContentHost"
+                                                          Grid.Row="1"
+                                                          ContentSource="SelectedContent" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <Grid DockPanel.Dock="Top">
+        <Grid Margin="0,5" DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <CoreControls:SearchTextBox Width="250"
+            <CoreControls:SearchTextBox Width="300"
                                         HorizontalAlignment="Left"
+                                        LabelText="Enter Search to create a new ViewModel"
                                         SearchMode="Delayed"
                                         Text="{Binding SearchText,
                                                        UpdateSourceTrigger=PropertyChanged}"
@@ -49,15 +202,17 @@
                 </i:Interaction.Behaviors>
             </CoreControls:SearchTextBox>
         </Grid>
-        <TabControl x:Name="Items">
-            <TabControl.ItemTemplate>
+        <TabControl x:Name="Items" Style="{StaticResource StandardTabControl}">
+            <!--
+                <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding DisplayName}" />
-                        <Button Content="X" cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding DisplayName}" />
+                <Button Content="X" cal:Message.Attach="DeactivateItem($dataContext, 'true')" />
+                </StackPanel>
                 </DataTemplate>
-            </TabControl.ItemTemplate>
+                </TabControl.ItemTemplate>
+            -->
         </TabControl>
     </DockPanel>
 </UserControl>

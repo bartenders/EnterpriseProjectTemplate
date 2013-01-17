@@ -18,9 +18,6 @@ namespace EPT.Shell.IoC_Modules
             Bind<IBusyWatcher>().To<BusyWatcher>();
             Bind<BusyWatcher>().ToSelf().InSingletonScope().Named("Background");
 
-            Bind<IDialogManager>().To<DialogConductorViewModel>().InSingletonScope();
-
-
             Bind<AboutViewModel>().ToSelf().InSingletonScope();
             Bind<SettingsViewModel>().ToSelf().InSingletonScope();
             Bind<ShellModuleViewModel>().ToSelf().InSingletonScope();

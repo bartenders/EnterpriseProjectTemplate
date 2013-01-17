@@ -23,7 +23,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock x:Name="OrderDetails" />
+            <TextBlock x:Name="OrderDetails"
+                       Margin="5"
+                       FontWeight="Bold" />
             <DataGrid x:Name="Orders"
                       Grid.Row="1"
                       Style="{DynamicResource DataGridStyle}" />
