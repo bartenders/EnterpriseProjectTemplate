@@ -118,7 +118,7 @@ namespace EPT.Modules.MasterDataModule.ViewModels
 
         public void EditCustomer()
         {
-            _windowManager.ShowDialog(this, "DetailsView");
+            _windowManager.ShowDialog(this, "MeinTollerName");
         }
 
         public bool CanEditCustomer

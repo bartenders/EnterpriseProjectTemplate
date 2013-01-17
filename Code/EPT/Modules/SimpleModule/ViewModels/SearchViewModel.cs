@@ -56,5 +56,6 @@ namespace EPT.Modules.SearchModule.ViewModels
                 };
             this.ActiveItem = searchResult;
         }
+
     }
 }
