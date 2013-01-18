@@ -65,13 +65,16 @@ namespace EPT.Modules.MasterDataModule.ViewModels
 
         public bool CanSearch
         {
-            get { return (_refCustomers != null) && (string.IsNullOrEmpty(this.CustomerSearchText)); }
+            get
+            {
+                return (_refCustomers != null) && (_customerSearchText.Length > 2);
+            }
         }
 
         private string _customerSearchText;
         public string CustomerSearchText
         {
-            get { return _customerSearchText; }
+            get { return _customerSearchText ?? (_customerSearchText = string.Empty); }
             set
             {
                 if (value == _customerSearchText) return;
@@ -98,27 +101,41 @@ namespace EPT.Modules.MasterDataModule.ViewModels
             get { return _busyWatcher; }
         }
 
+        private async void InitializeDataAsync()
+        {
+            if (Execute.InDesignMode) return;
+            using (_busyWatcher.GetTicket())
+            {
+                var customers = await _repository.GetAllCustomersAsync();
+                Customers.AddRange(customers);
+                _refCustomers = Customers;
+                NotifyOfPropertyChange(() => CanSearch);
+                NotifyOfPropertyChange(() => CanEditCustomer);
+            }
+        }
+
         private void InitializeData()
         {
             if (Execute.InDesignMode) return;
-
             var ticket = _busyWatcher.GetTicket();
 
-            Task.Factory.StartNew(() => _repository.GetAllCustomers())
-            .ContinueWith((x) =>
+            Task.Factory.StartNew(() =>
                 {
-                    Customers.AddRange(x.Result);
-                    _refCustomers = Customers;
-                    ticket.Dispose();
-                    NotifyOfPropertyChange(() => CanSearch);
-                    NotifyOfPropertyChange(() => CanEditCustomer);
-                });
+                    return _repository.GetAllCustomers();
+                }).ContinueWith((task) =>
+                    {
+                        Customers.AddRange(task.Result);
+                        _refCustomers = Customers;
+                        NotifyOfPropertyChange(() => CanSearch);
+                        NotifyOfPropertyChange(() => CanEditCustomer);
+                        ticket.Dispose();
+                    });
 
         }
 
         public void EditCustomer()
         {
-            _windowManager.ShowDialog(this, "MeinTollerName");
+            _windowManager.ShowDialog(this, "DetailsView");
         }
 
         public bool CanEditCustomer

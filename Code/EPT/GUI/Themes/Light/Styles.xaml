@@ -5,12 +5,7 @@
 
     <Style BasedOn="{StaticResource StandardTabControl}" TargetType="TabControl" />
 
-    <Style BasedOn="{StaticResource StandardDataGrid}" TargetType="{x:Type DataGrid}">
-        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
-        <Setter Property="GridLinesVisibility" Value="Horizontal" />
-        <Setter Property="AlternationCount" Value="1" />
-        <Setter Property="AlternatingRowBackground" Value="{StaticResource AccentColor2}" />
-        <Setter Property="SelectionMode" Value="Single" />
-    </Style>
+    <Style BasedOn="{StaticResource StandardDataGrid}" TargetType="{x:Type DataGrid}" />
+
 
 </ResourceDictionary>

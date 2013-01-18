@@ -24,10 +24,7 @@ namespace EPT.DAL.Northwind
             }
         }
 
-        /// <summary>
-        /// Gets all customers.
-        /// </summary>
-        /// <returns></returns>
+
         public IEnumerable<Customer> GetAllCustomers()
         {
             Thread.Sleep(500);
@@ -38,15 +35,9 @@ namespace EPT.DAL.Northwind
             }
         }
 
-        public async Task<List<Customer>> GetAllCustomersAsync()
+        public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
         {
-            using (var context = new NorthwindEntities(GetEntityConnection()))
-            {
-                Thread.Sleep(500);
-                return await Task.Factory.StartNew(() =>
-                                                   (from item in context.Customers
-                                                    select item).ToList());
-            };
+            return await Task.Factory.StartNew(() => GetAllCustomers());
         }
 
         /// <summary>

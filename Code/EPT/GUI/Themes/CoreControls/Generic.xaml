@@ -10,6 +10,24 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
+
+    <Style x:Key="StandardDataGrid" TargetType="{x:Type DataGrid}">
+        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="AlternationCount" Value="1" />
+        <Setter Property="AlternatingRowBackground">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource AccentColor2}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalGridLinesBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="#FF8F8F8F" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="SelectionMode" Value="Single" />
+    </Style>
+
     <ControlTemplate x:Key="ButtonNavigateBackStyle" TargetType="{x:Type Button}">
         <Grid ToolTip="Navigate back">
             <Grid.ColumnDefinitions>

@@ -26,9 +26,77 @@
             <TextBlock x:Name="OrderDetails"
                        Margin="5"
                        FontWeight="Bold" />
+
+
             <DataGrid x:Name="Orders"
                       Grid.Row="1"
-                      Style="{DynamicResource DataGridStyle}" />
+                      AutoGenerateColumns="False"
+                      EnableRowVirtualization="True"
+                      RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="SizeToHeader" Header="Order Date">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding OrderDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="SizeToHeader"
+                                        Binding="{Binding OrderID}"
+                                        Header="Order ID" />
+                    <DataGridTemplateColumn Width="SizeToHeader" Header="Required Date">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding RequiredDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="SizeToHeader"
+                                        Binding="{Binding ShipAddress}"
+                                        Header="Ship Address" />
+                    <DataGridTextColumn Width="SizeToHeader"
+                                        Binding="{Binding ShipCity}"
+                                        Header="Ship City" />
+                    <DataGridTextColumn Width="SizeToHeader"
+                                        Binding="{Binding ShipCountry}"
+                                        Header="Ship Country" />
+                    <DataGridTextColumn Width="SizeToHeader"
+                                        Binding="{Binding ShipName}"
+                                        Header="Ship Name" />
+                    <DataGridTemplateColumn Width="SizeToHeader" Header="Shipped Date">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="SizeToHeader"
+                                        Binding="{Binding ShipPostalCode}"
+                                        Header="Ship Postal Code" />
+                    <DataGridTemplateColumn Width="SizeToHeader" Header="Ship Region">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox>
+                                    <ComboBoxItem Content="{Binding ShipRegion}" />
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="SizeToHeader" Header="Ship Via">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox>
+                                    <ComboBoxItem Content="{Binding ShipVia}" />
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
             <Button Grid.Row="1"
                     Grid.Column="1"
                     Width="44"
