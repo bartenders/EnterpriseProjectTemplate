@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6EC7AE27-36B7-46CD-970F-CD68A1A53CB0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EPT.DAL.Mappings</RootNamespace>
+    <AssemblyName>EPT.DAL.Mappings</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\..\Output\References\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddressMap.cs" />
+    <Compile Include="AddressTypeMap.cs" />
+    <Compile Include="AWBuildVersionMap.cs" />
+    <Compile Include="BillOfMaterialMap.cs" />
+    <Compile Include="BusinessEntityAddressMap.cs" />
+    <Compile Include="BusinessEntityContactMap.cs" />
+    <Compile Include="BusinessEntityMap.cs" />
+    <Compile Include="ContactTypeMap.cs" />
+    <Compile Include="CountryRegionCurrencyMap.cs" />
+    <Compile Include="CountryRegionMap.cs" />
+    <Compile Include="CreditCardMap.cs" />
+    <Compile Include="CultureMap.cs" />
+    <Compile Include="CurrencyMap.cs" />
+    <Compile Include="CurrencyRateMap.cs" />
+    <Compile Include="CustomerMap.cs" />
+    <Compile Include="DatabaseLogMap.cs" />
+    <Compile Include="DepartmentMap.cs" />
+    <Compile Include="EmailAddressMap.cs" />
+    <Compile Include="EmployeeDepartmentHistoryMap.cs" />
+    <Compile Include="EmployeeMap.cs" />
+    <Compile Include="EmployeePayHistoryMap.cs" />
+    <Compile Include="ErrorLogMap.cs" />
+    <Compile Include="IllustrationMap.cs" />
+    <Compile Include="JobCandidateMap.cs" />
+    <Compile Include="LocationMap.cs" />
+    <Compile Include="PasswordMap.cs" />
+    <Compile Include="PersonCreditCardMap.cs" />
+    <Compile Include="PersonMap.cs" />
+    <Compile Include="PersonPhoneMap.cs" />
+    <Compile Include="PhoneNumberTypeMap.cs" />
+    <Compile Include="ProductCategoryMap.cs" />
+    <Compile Include="ProductCostHistoryMap.cs" />
+    <Compile Include="ProductDescriptionMap.cs" />
+    <Compile Include="ProductInventoryMap.cs" />
+    <Compile Include="ProductListPriceHistoryMap.cs" />
+    <Compile Include="ProductMap.cs" />
+    <Compile Include="ProductModelIllustrationMap.cs" />
+    <Compile Include="ProductModelMap.cs" />
+    <Compile Include="ProductModelProductDescriptionCultureMap.cs" />
+    <Compile Include="ProductPhotoMap.cs" />
+    <Compile Include="ProductProductPhotoMap.cs" />
+    <Compile Include="ProductReviewMap.cs" />
+    <Compile Include="ProductSubcategoryMap.cs" />
+    <Compile Include="ProductVendorMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderDetailMap.cs" />
+    <Compile Include="PurchaseOrderHeaderMap.cs" />
+    <Compile Include="SalesOrderDetailMap.cs" />
+    <Compile Include="SalesOrderHeaderMap.cs" />
+    <Compile Include="SalesOrderHeaderSalesReasonMap.cs" />
+    <Compile Include="SalesPersonMap.cs" />
+    <Compile Include="SalesPersonQuotaHistoryMap.cs" />
+    <Compile Include="SalesReasonMap.cs" />
+    <Compile Include="SalesTaxRateMap.cs" />
+    <Compile Include="SalesTerritoryHistoryMap.cs" />
+    <Compile Include="SalesTerritoryMap.cs" />
+    <Compile Include="ScrapReasonMap.cs" />
+    <Compile Include="ShiftMap.cs" />
+    <Compile Include="ShipMethodMap.cs" />
+    <Compile Include="ShoppingCartItemMap.cs" />
+    <Compile Include="SpecialOfferMap.cs" />
+    <Compile Include="SpecialOfferProductMap.cs" />
+    <Compile Include="StateProvinceMap.cs" />
+    <Compile Include="StoreMap.cs" />
+    <Compile Include="TransactionHistoryArchiveMap.cs" />
+    <Compile Include="TransactionHistoryMap.cs" />
+    <Compile Include="UnitMeasureMap.cs" />
+    <Compile Include="VendorMap.cs" />
+    <Compile Include="WorkOrderMap.cs" />
+    <Compile Include="WorkOrderRoutingMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\EPT.DAL.Core.csproj">
+      <Project>{88A416A8-32C8-4ED8-B256-7C8A9BCE5C42}</Project>
+      <Name>EPT.DAL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainClasses\EPT.DAL.DomainClasses.csproj">
+      <Project>{DD0ABC10-BEE7-4D05-A256-EF2341383613}</Project>
+      <Name>EPT.DAL.DomainClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

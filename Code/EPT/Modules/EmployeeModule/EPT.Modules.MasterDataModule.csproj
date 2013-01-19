@@ -47,12 +47,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Solutions\packages\Caliburn.Micro.1.4\lib\net40\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Solutions\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
@@ -83,7 +77,10 @@
       <HintPath>..\..\..\..\Solutions\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Solutions\packages\Caliburn.Micro.1.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -132,10 +129,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\DataSources\EPT.DAL.Northwind.Customer.datasource" />
-    <None Include="Properties\DataSources\EPT.DAL.Northwind.Order.datasource" />
-    <None Include="Properties\DataSources\EPT.DAL.Northwind.Order_Detail.datasource" />
-    <None Include="Properties\DataSources\EPT.DAL.Northwind.Order_Details_Extended.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,9 +136,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DAL\EPT.DAL.Northwind.csproj">
-      <Project>{1CB44494-9A33-421E-B7AD-BDF6CA664B13}</Project>
-      <Name>EPT.DAL.Northwind</Name>
+    <ProjectReference Include="..\..\DAL\Core\EPT.DAL.Core.csproj">
+      <Project>{88A416A8-32C8-4ED8-B256-7C8A9BCE5C42}</Project>
+      <Name>EPT.DAL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\DomainClasses\EPT.DAL.DomainClasses.csproj">
+      <Project>{DD0ABC10-BEE7-4D05-A256-EF2341383613}</Project>
+      <Name>EPT.DAL.DomainClasses</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\GUI\EPT.GUI.csproj">
       <Project>{8AB6482C-7064-4A29-B5F5-26D99FA904DE}</Project>
@@ -154,6 +151,10 @@
     <ProjectReference Include="..\..\Infrastructure\EPT.Infrastructure.csproj">
       <Project>{FAFE940D-3319-4012-AA15-0CF96FAB2863}</Project>
       <Name>EPT.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WEB\Services\EPT.WEB.Services.csproj">
+      <Project>{D455FEEB-3B96-4F12-875E-472A38490E9A}</Project>
+      <Name>EPT.WEB.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using EPT.DAL.Northwind;
+using EPT.DAL.DomainClasses;
 using EPT.GUI.Helpers;
 using EPT.Infrastructure.API;
 using EPT.Modules.MasterDataModule.InternalMessages;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using EPT.WEB.Services;
 
 namespace EPT.Modules.MasterDataModule.ViewModels
 {
@@ -55,7 +56,7 @@ namespace EPT.Modules.MasterDataModule.ViewModels
         public void Search()
         {
             var busyTicket = _busyWatcher.GetTicket();
-            Task.Factory.StartNew(() => _refCustomers.Where(x => x.ContactName.Contains(this.CustomerSearchText)).ToList())
+            Task.Factory.StartNew(() => _refCustomers.Where(x => x.AccountNumber.Contains(this.CustomerSearchText)).ToList())
             .ContinueWith((x) =>
             {
                 Customers = new BindableCollection<Customer>(x.Result);

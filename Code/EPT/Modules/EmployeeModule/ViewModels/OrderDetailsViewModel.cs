@@ -1,21 +1,21 @@
 ﻿using Caliburn.Micro;
-using EPT.DAL.Northwind;
+using EPT.DAL.DomainClasses;
 
 namespace EPT.Modules.MasterDataModule.ViewModels
 {
     public class OrderDetailsViewModel : Screen
     {
-        private readonly Order _selectedOrder;
+        private readonly SalesOrderHeader _selectedOrder;
         private readonly IWindowManager _windowManager;
 
-        public OrderDetailsViewModel(Order selectedOrder, IWindowManager windowManager)
+        public OrderDetailsViewModel(SalesOrderHeader selectedOrder, IWindowManager windowManager)
         {
             _selectedOrder = selectedOrder;
             _windowManager = windowManager;
-            _selectedOrder.PropertyChanged += (sender, args) =>
-                {
-                    IsDirty = true;
-                };
+            //_selectedOrder.PropertyChanged += (sender, args) =>
+            //    {
+            //        IsDirty = true;
+            //    };
         }
 
         private bool _isDirty;
@@ -31,7 +31,7 @@ namespace EPT.Modules.MasterDataModule.ViewModels
         }
 
 
-        public Order Order
+        public SalesOrderHeader Order
         {
             get { return _selectedOrder; }
         }

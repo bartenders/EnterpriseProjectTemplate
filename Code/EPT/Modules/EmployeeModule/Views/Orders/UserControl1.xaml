@@ -3,15 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Northwind="clr-namespace:EPT.DAL.Northwind;assembly=EPT.DAL.Northwind" x:Class="EPT.Modules.MasterDataModule.Views.Orders.UserControl1" 
+             xmlns:Northwind="clr-namespace:EPT.WEB.Services;assembly=EPT.WEB.Services"
+             xmlns:DomainClasses="clr-namespace:EPT.DAL.DomainClasses;assembly=EPT.DAL.DomainClasses"
+             x:Class="EPT.Modules.MasterDataModule.Views.Orders.UserControl1" 
              mc:Ignorable="d" 
              d:DesignHeight="270" d:DesignWidth="856" Loaded="UserControl_Loaded_1">
     <UserControl.Resources>
-        <CollectionViewSource x:Key="orderViewSource" d:DesignSource="{d:DesignInstance {x:Type Northwind:Order}, CreateList=True}"/>
+        <CollectionViewSource x:Key="orderViewSource" d:DesignSource="{d:DesignInstance {x:Type DomainClasses:SalesOrderHeader}, CreateList=True}"/>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource orderViewSource}">
         <DataGrid x:Name="orderDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.Columns>
+            <!--<DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="orderDateColumn" Header="Order Date" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -57,7 +59,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
+            </DataGrid.Columns>-->
         </DataGrid>
 
     </Grid>

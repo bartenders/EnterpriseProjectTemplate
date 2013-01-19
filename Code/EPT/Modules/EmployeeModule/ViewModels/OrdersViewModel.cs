@@ -1,8 +1,9 @@
 ﻿using Caliburn.Micro;
-using EPT.DAL.Northwind;
+using EPT.DAL.DomainClasses;
 using EPT.Infrastructure.API;
 using EPT.Modules.MasterDataModule.InternalMessages;
 using System.Threading.Tasks;
+using EPT.WEB.Services;
 
 namespace EPT.Modules.MasterDataModule.ViewModels
 {
@@ -34,10 +35,10 @@ namespace EPT.Modules.MasterDataModule.ViewModels
             base.OnActivate();
         }
 
-        private BindableCollection<Order> _orders;
-        public BindableCollection<Order> Orders
+        private BindableCollection<SalesOrderHeader> _orders;
+        public BindableCollection<SalesOrderHeader> Orders
         {
-            get { return _orders ?? (_orders = new BindableCollection<Order>()); }
+            get { return _orders ?? (_orders = new BindableCollection<SalesOrderHeader>()); }
             set
             {
                 if (value == _orders) return;
@@ -46,8 +47,8 @@ namespace EPT.Modules.MasterDataModule.ViewModels
             }
         }
 
-        private Order _selectedOrder;
-        public Order SelectedOrder
+        private SalesOrderHeader _selectedOrder;
+        public SalesOrderHeader SelectedOrder
         {
             get { return _selectedOrder; }
             set
@@ -74,11 +75,11 @@ namespace EPT.Modules.MasterDataModule.ViewModels
         {
             Orders.Clear();
 
-            if (message.Customer != null && !string.IsNullOrEmpty(message.Customer.CustomerID))
+            if (message.Customer != null && message.Customer.CustomerID > 0)
             {
                 var ticket = BusyWatcher.GetTicket();
                 Task.Factory.StartNew(() => Orders.AddRange(_repository.GetOrdersFromCustomer(message.Customer.CustomerID))).ContinueWith((x) => ticket.Dispose());
-                OrderDetails = string.Format("Order Details for customer {0}", message.Customer.ContactName);
+                OrderDetails = string.Format("Order Details for customer {0}", message.Customer.AccountNumber);
             }
         }
 

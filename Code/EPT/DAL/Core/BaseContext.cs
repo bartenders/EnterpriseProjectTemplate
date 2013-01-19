@@ -10,7 +10,7 @@ namespace ETP.DAL.Core
             Database.SetInitializer<TContext>(null);
         }
         protected BaseContext()
-            : base("name=EnterpriseDatabase")
+            : base("name=AdventureWorks2012")
         { }
     }
 }

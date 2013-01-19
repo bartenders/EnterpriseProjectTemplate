@@ -1,4 +1,4 @@
-﻿using EPT.DAL.Northwind;
+﻿using EPT.DAL.DomainClasses;
 
 namespace EPT.Modules.MasterDataModule.InternalMessages
 {

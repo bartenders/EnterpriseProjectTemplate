@@ -1,6 +1,6 @@
-﻿using EPT.DAL.Northwind;
-using EPT.Infrastructure.API;
+﻿using EPT.Infrastructure.API;
 using EPT.Modules.MasterDataModule.ViewModels;
+using EPT.WEB.Services;
 
 namespace EPT.Modules.MasterDataModule.IoC_Modules
 {

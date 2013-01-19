@@ -10,8 +10,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:EPT.Modules.MasterDataModule.ViewModels"
              cal:Bind.AtDesignTime="True"
-             d:DataContext="{d:DesignInstance {x:Type viewModels:CustomersViewModel},
-                                              IsDesignTimeCreatable=True}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -56,9 +54,9 @@
                                         Text="{Binding CustomerSearchText,
                                                        UpdateSourceTrigger=PropertyChanged}"
                                         cal:Message.Attach="[Event Search] = [Action Search]">
-                <i:Interaction.Behaviors>
+                <!--<i:Interaction.Behaviors>
                     <Behaviors:InitialFocusBehavior />
-                </i:Interaction.Behaviors>
+                </i:Interaction.Behaviors>-->
             </CoreControls:SearchTextBox>
 
             <DataGrid x:Name="Customers"

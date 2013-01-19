@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 
-using Caliburn.Micro.Logging.NLog;
+//using Caliburn.Micro.Logging.NLog;
 using EPT.Infrastructure.API;
 using EPT.Infrastructure.Input;
 using EPT.Shell.Properties;
@@ -24,7 +24,7 @@ namespace EPT.Shell
 
         static NinjectBootstrapper()
         {
-            LogManager.GetLog = type => new NLogLogger(type);
+            //LogManager.GetLog = type => new NLogLogger(type);
         }
 
         /// <summary>
